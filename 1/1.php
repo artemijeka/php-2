@@ -29,6 +29,29 @@ class DogMother
     }
     
     // Поведение:
-//     public function 
-    
+    public function TitlesOfDog(){ // Выводит титулы собаки
+        return $this->titles;
+    }
 }
+
+$stamp = 12345;
+$prefix = "Монинг Стар";
+$nickname = "Хорошенькая Леди Звезда";
+$coloring = "п/с";
+$birth_day = "1.1.2009";
+$titles = "Супер гранд чемпион всея России!";
+
+$ledi = new DogMother($stamp, $prefix, $nickname, $coloring, $birth_day, $titles);
+
+echo $ledi->TitlesOfDog();
+
+
+
+
+
+
+
+
+
+
+

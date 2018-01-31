@@ -2,14 +2,14 @@
 
 class DogMother
 {   
-    // Состояние собаки:
+    // Состояние объекта:
     private $stamp;                       // Номер клейма
     private $prefix;                      // Заводская приставка
     private $nickname;                    // Кличка
     private $coloring;                    // Окрас собаки
     private $birth_day;                   // День рождения
     private $titles;                      // Титулы и награды собаки
-    // Состояние помета:
+    // Состояние объекта:
     private $litter_date;                 // День крайнего помета
     private $number_of_males;             // Кол-во самцов в помете
     private $number_of_females;           // Кол-во самок в помете
@@ -28,23 +28,40 @@ class DogMother
         $this->titles = $titles;
     }
     
-    // Поведение:
+    // Поведение объекта:
+    public function NewDateLitter($litter_date) // Регистрирует новый помет
+    { 
+        $this->litter_date = $litter_date;
+    }
+    public function CurrentDateLitter() // Возвращает текущую дату помета
+    { 
+        return $this->litter_date;
+    }
+    public function Nickname() // Возвращает кличку собаки
+    {
+        return $this->nickname;
+    }
     public function TitlesOfDog(){ // Выводит титулы собаки
         return $this->titles;
     }
 }
 
-$stamp = 12345;
+// Регистрация новой собаки
+$stamp = 1234;
 $prefix = "Монинг Стар";
 $nickname = "Хорошенькая Леди Звезда";
 $coloring = "п/с";
-$birth_day = "1.1.2009";
+$birth_day = "1.1.2008";
 $titles = "Супер гранд чемпион всея России!";
-
 $ledi = new DogMother($stamp, $prefix, $nickname, $coloring, $birth_day, $titles);
 
-echo $ledi->TitlesOfDog();
+echo $ledi->TitlesOfDog(); // Вывод титулов собаки
 
+echo "<br>";
+
+$ledi->NewDateLitter('27.02.2018'); // Регистрируем новый помет
+// Выводим объявление о ожидании помета
+echo "У собаки по кличке ".$ledi->Nickname()." ожидаются щенки ".$ledi->CurrentDateLitter(). " года.";
 
 
 

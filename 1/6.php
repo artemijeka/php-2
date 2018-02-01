@@ -11,12 +11,7 @@ class A
 
 class B extends A
 {
-// Полностью унаследовала от класса A, но имеет свой экземпляр этих методов независимо от класса A
-//     public function foo()
-//     {
-//         static $x = 0;
-//         echo ++$x;
-//     }
+    
 }
 $a1 = new A;
 $b1 = new B;

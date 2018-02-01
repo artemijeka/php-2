@@ -15,47 +15,47 @@ $stamp = 1234;
 $ledi = new DogMother($birth_day, $sex, $coloring, $nickname, $prefix, $stamp);
 
 // Добавление пары титулов
-$ledi->AddATitleToTheDog("Гранд чемпион.");
-$ledi->AddATitleToTheDog("Чемпион России.");
+$ledi->addATitleToTheDog("Гранд чемпион.");
+$ledi->addATitleToTheDog("Чемпион России.");
 // Вывод имени и титулов собаки на экран
-echo "Титулы собаки ".$ledi->GetInfoAboutThisDog('nickname').": ".$ledi->GetInfoAboutThisDog('titles'); 
+echo "Титулы собаки ".$ledi->getInfoAboutThisDog('nickname').": ".$ledi->getInfoAboutThisDog('titles'); 
 
 echo "<br>";
 
 // Регистрируем новый помет
-$ledi->NewLitter("30.01.2018", "2", "3"); 
+$ledi->newLitter("30.01.2018", "2", "3"); 
 
 // Продали одного кобеля и одну суку:
-$ledi->SoldMale(1);
-$ledi->SoldFemale(1);
+$ledi->soldMale(1);
+$ledi->soldFemale(1);
 
 // Выводим объявление о помете
-echo "Ведется запись на щенков от собаки: ".$ledi->GetInfoAboutThisDog('nickname').". "."Дата рождения щенков: ". $ledi->GetInfoAboutThisDog('litter_date')." года. ";
+echo "Ведется запись на щенков от собаки: ".$ledi->getInfoAboutThisDog('nickname').". "."Дата рождения щенков: ". $ledi->getInfoAboutThisDog('litter_date')." года. ";
 // Вывидим кол-во щенков
-echo "В наличии: кобелей ".$ledi->GetInfoAboutThisDog('number_of_males').", сук ".$ledi->GetInfoAboutThisDog('number_of_females').".";
+echo "В наличии: кобелей ".$ledi->getInfoAboutThisDog('number_of_males').", сук ".$ledi->getInfoAboutThisDog('number_of_females').".";
 
 // --- Регистрируем нового щенка: ---
-$sharik = new Puppy($ledi->GetInfoAboutThisDog('litter_date'), 
+$sharik = new Puppy($ledi->getInfoAboutThisDog('litter_date'), 
                     'male', 
-                    $ledi->GetInfoAboutThisDog('coloring'), 
+                    $ledi->getInfoAboutThisDog('coloring'), 
                     'Шарик', 
-                    $ledi->GetInfoAboutThisDog('prefix'), 
+                    $ledi->getInfoAboutThisDog('prefix'), 
                     23456);
 // Добавляем титулы
-$sharik->AddATitleToTheDog('Лучший любитель нагадить где не надо в классе юниор!');
+$sharik->addATitleToTheDog('Лучший любитель нагадить где не надо в классе юниор!');
 echo "<br>";
-echo "Окрас ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('coloring');
+echo "Окрас ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('coloring');
 echo "<br>";
-echo "Имя у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('nickname');
+echo "Имя у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('nickname');
 echo "<br>";
-echo "Приставка у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('prefix');
+echo "Приставка у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('prefix');
 echo "<br>";
-echo "Тату у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('stamp');
+echo "Тату у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('stamp');
 echo "<br>";
-echo "Титулы у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('titles');
+echo "Титулы у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('titles');
 echo "<br>";
-echo "Дата помета у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('litter_date');
+echo "Дата помета у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('litter_date');
 echo "<br>";
-echo "Число кобелей у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('number_of_males');
+echo "Число кобелей у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('number_of_males');
 echo "<br>";
-echo "Число сук у ".$sharik->GetInfoAboutThisDog('nickname').": ".$sharik->GetInfoAboutThisDog('number_of_females');
+echo "Число сук у ".$sharik->getInfoAboutThisDog('nickname').": ".$sharik->getInfoAboutThisDog('number_of_females');

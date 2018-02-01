@@ -22,7 +22,8 @@ class DogMother
     private $number_of_remaining_females; // Кол-во оставшихся самок
     
     // --- Конструктор для объявления собаки: ---
-    function __construct($birth_day, $sex, $coloring, $nickname, $prefix, $stamp){
+    function __construct($birth_day, $sex, $coloring, $nickname, $prefix, $stamp)
+    {
         $this->birth_day = $birth_day;
         $this->sex = $sex;
         $this->coloring = $coloring;
@@ -33,13 +34,13 @@ class DogMother
     
     // --- Поведение объекта: ---
     // Добавление титула собаке
-    public function AddATitleToTheDog($new_title) 
+    public function addATitleToTheDog($new_title)
     { 
         $this->titles.=" ".$new_title;
     }
     
     // Регистрирует новый помет
-    public function NewLitter($litter_date, $number_of_males, $number_of_females)
+    public function newLitter($litter_date, $number_of_males, $number_of_females)
     { 
         $this->litter_date = $litter_date;
         $this->number_of_males = $number_of_males;
@@ -47,20 +48,20 @@ class DogMother
     }
     
     // Обновление информации о купленных кобелях и оставшихся
-    public function SoldMale($number)
+    public function soldMale($number)
     {
         if ($this->number_of_males<$number){echo "<b style='font-size:1.2em'>У вас нет столько кобелей на продажу! </b>";}
         else {$this->number_of_males -= $number;}
     }
     // Обновление информации о купленных суках и оставшихся
-    public function SoldFemale($number)
+    public function soldFemale($number)
     {
         if ($this->number_of_females<$number){echo "<b style='font-size:1.2em'>У вас нет столько сук на продажу! </b>";}
         else {$this->number_of_females -= $number;}   
     }
     
     // С ПОМОЩЬЮ КЕЙСОВ И СВИТЧА ПРОИЗВОДИТСЯ ВОЗВРАТ НЕОБХОДИМОЙ ИНФОРМАЦИИ
-    public function GetInfoAboutThisDog($case)
+    public function getInfoAboutThisDog($case)
     {
         switch ($case)
         {

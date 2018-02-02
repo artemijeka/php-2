@@ -17,9 +17,9 @@ class DogMother
     private $number_of_females;           // Кол-во самок в помете
     // Кол-во щенков проданных и оставшихся
     private $nubmer_of_sold_males;        // Кол-во проданных самцов
-    private $number_of_remaining_males;   // Кол-во оставшихся самцов
     private $nubmer_of_sold_females;      // Кол-во проданных самок
-    private $number_of_remaining_females; // Кол-во оставшихся самок
+//    private $number_of_remaining_females; // Кол-во оставшихся самок
+//    private $number_of_remaining_males;   // Кол-во оставшихся самцов
     
     // --- Конструктор для объявления собаки: ---
     function __construct($birth_day, $sex, $coloring, $nickname, $prefix, $stamp)
@@ -50,16 +50,23 @@ class DogMother
     // Обновление информации о купленных кобелях и оставшихся
     public function soldMale($number)
     {
-        if ($this->number_of_males<$number){echo "<b style='font-size:1.2em'>У вас нет столько кобелей на продажу! </b>";}
-        else {$this->number_of_males -= $number;}
+        if ($this->number_of_males<$number){
+            echo "<b style='font-size:1.2em'>У вас нет столько кобелей на продажу! </b>";
+        }else{
+            $this->number_of_males -= $number; 
+            $this->nubmer_of_sold_males += $number;
+        }
     }
     // Обновление информации о купленных суках и оставшихся
     public function soldFemale($number)
     {
-        if ($this->number_of_females<$number){echo "<b style='font-size:1.2em'>У вас нет столько сук на продажу! </b>";}
-        else {$this->number_of_females -= $number;}   
+        if ($this->number_of_females<$number){
+            echo "<b style='font-size:1.2em'>У вас нет столько сук на продажу! </b>";
+        }else{
+            $this->number_of_females -= $number;
+            $this->nubmer_of_sold_females += $number;
+        }   
     }
-    
     // С ПОМОЩЬЮ КЕЙСОВ И СВИТЧА ПРОИЗВОДИТСЯ ВОЗВРАТ НЕОБХОДИМОЙ ИНФОРМАЦИИ
     public function getInfoAboutThisDog($case)
     {
@@ -88,7 +95,13 @@ class DogMother
                 break;
             case "number_of_females": // Для возврата кол-ва сук в помете
                 return $this->number_of_females;
-                break;            
+                break;
+            case "number_of_sold_males": // Для возврата кол-ва кобелей в помете
+                return $this->number_of_sold_males;
+                break;
+            case "number_of_sold_females": // Для возврата кол-ва сук в помете
+                return $this->number_of_sold_females;
+                break;
         }
     }
 }

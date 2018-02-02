@@ -1,7 +1,7 @@
 <?php
 
-require_once './lib/DogMother.class.php';
-require_once './lib/Puppy.class.php';
+require_once ('./lib/DogMother.class.php');
+require_once ('./lib/Puppy.class.php');
 
 // --- Регистрация новой собаки: ---
 // Инициализация переменных
@@ -13,26 +13,25 @@ $prefix = "Монинг Стар";
 $stamp = 1234;
 // Создание объекта
 $ledi = new DogMother($birth_day, $sex, $coloring, $nickname, $prefix, $stamp);
-
 // Добавление пары титулов
 $ledi->addATitleToTheDog("Гранд чемпион.");
 $ledi->addATitleToTheDog("Чемпион России.");
 // Вывод имени и титулов собаки на экран
-echo "Титулы собаки ".$ledi->getInfoAboutThisDog('nickname').": ".$ledi->getInfoAboutThisDog('titles'); 
-
+echo "Титулы собаки ".$ledi->getInfoAboutThisDog('nickname').": ".$ledi->getInfoAboutThisDog('titles');
 echo "<br>";
-
 // Регистрируем новый помет
 $ledi->newLitter("30.01.2018", "2", "3"); 
-
 // Продали одного кобеля и одну суку:
 $ledi->soldMale(1);
 $ledi->soldFemale(1);
-
 // Выводим объявление о помете
 echo "Ведется запись на щенков от собаки: ".$ledi->getInfoAboutThisDog('nickname').". "."Дата рождения щенков: ". $ledi->getInfoAboutThisDog('litter_date')." года. ";
 // Вывидим кол-во щенков
 echo "В наличии: кобелей ".$ledi->getInfoAboutThisDog('number_of_males').", сук ".$ledi->getInfoAboutThisDog('number_of_females').".";
+// Выводим кол-во проданных щенков
+echo "Продано кобелей: ".$ledi->getInfoAboutThisDog('nubmer_of_sold_males')." ";
+echo "<br>";
+echo "Продано сук: ".$ledi->getInfoAboutThisDog('nubmer_of_sold_females')." ";
 
 // --- Регистрируем нового щенка: ---
 $sharik = new Puppy($ledi->getInfoAboutThisDog('litter_date'), 

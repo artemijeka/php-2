@@ -1,7 +1,6 @@
 <?php
 
 include_once 'Goods.abstract.class.php';
-include_once 'PieceGoods.class.php';
 
 class DigitalGoods extends Goods
 {
@@ -12,7 +11,6 @@ class DigitalGoods extends Goods
     // Определение абстрактного метода подсчета финальной стоимости
     protected function calculationFinalValue()
     {
-        #
+        return null;
     }
-
 }

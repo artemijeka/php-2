@@ -1,6 +1,6 @@
 <?php
 
-include 'Goods.abstract.class.php';
+require_once 'Goods.abstract.class.php';
 
 // Штучный товар
 class PieceGoods extends Goods

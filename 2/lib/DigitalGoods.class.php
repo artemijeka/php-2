@@ -1,18 +1,18 @@
 <?php
 
-include_once 'Goods.abstract.class.php';
+include 'Goods.abstract.class.php';
 
+// Цифровой товар
 class DigitalGoods extends Goods
 {
-    // У цифровой версии игры стоимость постоянная 
-    // и дешевле штучной игры на диске в два раза
-    protected $cost = 1500;
     // Есть метод получения стоимоси getCost();   
-
-    // Определение абстрактного метода подсчета финальной стоимости
-    public function calculationFinalValue()
+    // Сеттер для получения кол-ва товара setAmount($amount)
+    // Геттер для получения кол-ва товара getAmount() 
+    
+    // Вычисление финальной стоимости товара
+    public function countingTheCost() 
     {
-        return null;
+        return $this->cost * $this->amount;
     }
     // Выручка
     public function earnings()

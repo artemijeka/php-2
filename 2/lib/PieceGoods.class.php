@@ -1,18 +1,18 @@
 <?php
 
-include_once 'Goods.abstract.class.php';
+include 'Goods.abstract.class.php';
 
 // Штучный товар
 class PieceGoods extends Goods
 {
-    // Стоимость допустим диска с игрой:  
-    protected $cost = 1500;
     // Есть метод получения стоимоси getCost();   
-         
+    // Сеттер для получения кол-ва товара setAmount($amount)
+    // Геттер для получения кол-ва товара getAmount()
+
     // Вычисление финальной стоимости товара
-    public function calculationFinalValue() 
+    public function countingTheCost() 
     {
-        return null;
+        return $this->cost * $this->amount;
     }
     // Выручка
     public function earnings()

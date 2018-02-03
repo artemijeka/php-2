@@ -6,10 +6,16 @@ class DigitalGoods extends Goods
 {
     // У цифровой версии игры стоимость постоянная 
     // и дешевле штучной игры на диске в два раза
-    private $cost = 1500;
+    protected $cost = 1500;
+    // Есть метод получения стоимоси getCost();   
 
     // Определение абстрактного метода подсчета финальной стоимости
-    protected function calculationFinalValue()
+    public function calculationFinalValue()
+    {
+        return null;
+    }
+    // Выручка
+    public function earnings()
     {
         return null;
     }

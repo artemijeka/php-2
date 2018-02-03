@@ -6,11 +6,17 @@ include_once 'Goods.abstract.class.php';
 class PieceGoods extends Goods
 {
     // Стоимость допустим диска с игрой:  
-    private $cost = 1500;
-    
-    
-    protected function calculationFinalValue() {
+    protected $cost = 1500;
+    // Есть метод получения стоимоси getCost();   
+         
+    // Вычисление финальной стоимости товара
+    public function calculationFinalValue() 
+    {
         return null;
     }
-
+    // Выручка
+    public function earnings()
+    {
+        return null;
+    }
 }

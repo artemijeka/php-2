@@ -1,22 +1,24 @@
 <?php
 
-abstract class Goods 
+abstract class Goods
 {
-    // Вычисление финальной стоимости товара
-    abstract protected function calculationFinalValue();
-    
-    // Стоимость товара
-    private $cost; 
-    
+    // Переменная стоимости товара:
+    protected $cost;
     // Гетер для получения стоимости товара:
-    public function getCost()
+    final public function getCost()
     {
         return $this->cost;
     }
-
+    
+    // Вычисление финальной стоимости товара
+    abstract public function calculationFinalValue();
+    
     // Выручка
-//    public function earnings()
+    abstract public function earnings();
+        
+    // Гетер для получения стоимости товара:
+//    final public function getCost()
 //    {
-//        
+//        return $this->cost;
 //    }
 }

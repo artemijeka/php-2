@@ -1,22 +1,19 @@
 <?php
 
-require_once 'Goods.abstract.class.php';
-
 // Штучный товар
-class PieceGoods extends Goods
+class PieceGoods extends AbstractGoods
 {
-    // Есть метод получения стоимоси getCost();   
-    // Сеттер для получения кол-ва товара setAmount($amount)
-    // Геттер для получения кол-ва товара getAmount()
-
-    // Вычисление финальной стоимости товара
-    public function countingTheCost() 
+    public function addOrder($amount)
     {
-        return $this->cost * $this->amount;
+        parent::addOrder($amount);
+        echo "Стоимость диска с игрой: ".$this -> getCost()." руб.<br>";
+        echo "Кол-во дисков заказано: ".$this -> getAmount()." шт.<br>";
+        echo "Итого покупка составила: ".$this -> countingTheCost()." руб.<br>";        
     }
+
     // Выручка
-    public function earnings()
+    public function getEarnings()
     {
-        return null;
+        echo 'Выручка со всех проданных дисков (' .$this->totalAmount. ' шт) составила: ' . $this->earnings . ' руб.';
     }
 }

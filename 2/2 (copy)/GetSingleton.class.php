@@ -7,8 +7,8 @@ class GetSingleton
 {
     // Подключаем трейт синглтона
     use Singleton;
-    // Защищенный метод, который вызывается только через экземпляр синглтона
-    protected function init()
+    // Публичный метод но который вызывается только через экземпляр синглтона
+    public function getHello()
     {
         echo '<br>Hello! The singleton from the trait works!<br>';
     }

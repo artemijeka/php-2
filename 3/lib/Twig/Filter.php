@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009-2012 Fabien Potencier
+ * (c) 2009 Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,60 +12,25 @@
 /**
  * Represents a template filter.
  *
- * @author Fabien Potencier <fabien@symfony.com>
+ * Use Twig_SimpleFilter instead.
  *
- * @see http://twig.sensiolabs.org/doc/templates.html#filters
+ * @author Fabien Potencier <fabien@symfony.com>
+ * @deprecated since 1.12 (to be removed in 2.0)
  */
-class Twig_Filter
+abstract class Twig_Filter implements Twig_FilterInterface, Twig_FilterCallableInterface
 {
-    private $name;
-    private $callable;
-    private $options;
-    private $arguments = array();
+    protected $options;
+    protected $arguments = array();
 
-    /**
-     * Creates a template filter.
-     *
-     * @param string        $name     Name of this filter
-     * @param callable|null $callable A callable implementing the filter. If null, you need to overwrite the "node_class" option to customize compilation.
-     * @param array         $options  Options array
-     */
-    public function __construct($name, $callable = null, array $options = array())
+    public function __construct(array $options = array())
     {
-        $this->name = $name;
-        $this->callable = $callable;
         $this->options = array_merge(array(
             'needs_environment' => false,
-            'needs_context' => false,
-            'is_variadic' => false,
-            'is_safe' => null,
-            'is_safe_callback' => null,
-            'pre_escape' => null,
-            'preserves_safety' => null,
-            'node_class' => 'Twig_Node_Expression_Filter',
-            'deprecated' => false,
-            'alternative' => null,
+            'needs_context'     => false,
+            'pre_escape'        => null,
+            'preserves_safety'  => null,
+            'callable'          => null,
         ), $options);
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns the callable to execute for this filter.
-     *
-     * @return callable|null
-     */
-    public function getCallable()
-    {
-        return $this->callable;
-    }
-
-    public function getNodeClass()
-    {
-        return $this->options['node_class'];
     }
 
     public function setArguments($arguments)
@@ -90,13 +55,15 @@ class Twig_Filter
 
     public function getSafe(Twig_Node $filterArgs)
     {
-        if (null !== $this->options['is_safe']) {
+        if (isset($this->options['is_safe'])) {
             return $this->options['is_safe'];
         }
 
-        if (null !== $this->options['is_safe_callback']) {
-            return $this->options['is_safe_callback']($filterArgs);
+        if (isset($this->options['is_safe_callback'])) {
+            return call_user_func($this->options['is_safe_callback'], $filterArgs);
         }
+
+        return null;
     }
 
     public function getPreservesSafety()
@@ -109,23 +76,8 @@ class Twig_Filter
         return $this->options['pre_escape'];
     }
 
-    public function isVariadic()
+    public function getCallable()
     {
-        return $this->options['is_variadic'];
-    }
-
-    public function isDeprecated()
-    {
-        return (bool) $this->options['deprecated'];
-    }
-
-    public function getDeprecatedVersion()
-    {
-        return $this->options['deprecated'];
-    }
-
-    public function getAlternative()
-    {
-        return $this->options['alternative'];
+        return $this->options['callable'];
     }
 }

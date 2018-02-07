@@ -15,14 +15,12 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Twig_Node implements Countable, IteratorAggregate
+class Twig_Node implements Twig_NodeInterface
 {
     protected $nodes;
     protected $attributes;
     protected $lineno;
     protected $tag;
-
-    private $name;
 
     /**
      * Constructor.
@@ -30,18 +28,13 @@ class Twig_Node implements Countable, IteratorAggregate
      * The nodes are automatically made available as properties ($this->node).
      * The attributes are automatically made available as array items ($this['name']).
      *
-     * @param array  $nodes      An array of named nodes
-     * @param array  $attributes An array of attributes (should not be nodes)
-     * @param int    $lineno     The line number
-     * @param string $tag        The tag name associated with the Node
+     * @param array   $nodes      An array of named nodes
+     * @param array   $attributes An array of attributes (should not be nodes)
+     * @param integer $lineno     The line number
+     * @param string  $tag        The tag name associated with the Node
      */
     public function __construct(array $nodes = array(), array $attributes = array(), $lineno = 0, $tag = null)
     {
-        foreach ($nodes as $name => $node) {
-            if (!$node instanceof self) {
-                throw new InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a Twig_Node instance.', is_object($node) ? get_class($node) : null === $node ? 'null' : gettype($node), $name, get_class($this)));
-            }
-        }
         $this->nodes = $nodes;
         $this->attributes = $attributes;
         $this->lineno = $lineno;
@@ -76,6 +69,36 @@ class Twig_Node implements Countable, IteratorAggregate
         return implode("\n", $repr);
     }
 
+    public function toXml($asDom = false)
+    {
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
+        $dom->appendChild($xml = $dom->createElement('twig'));
+
+        $xml->appendChild($node = $dom->createElement('node'));
+        $node->setAttribute('class', get_class($this));
+
+        foreach ($this->attributes as $name => $value) {
+            $node->appendChild($attribute = $dom->createElement('attribute'));
+            $attribute->setAttribute('name', $name);
+            $attribute->appendChild($dom->createTextNode($value));
+        }
+
+        foreach ($this->nodes as $name => $n) {
+            if (null === $n) {
+                continue;
+            }
+
+            $child = $n->toXml(true)->getElementsByTagName('node')->item(0);
+            $child = $dom->importNode($child, true);
+            $child->setAttribute('name', $name);
+
+            $node->appendChild($child);
+        }
+
+        return $asDom ? $dom : $dom->saveXml();
+    }
+
     public function compile(Twig_Compiler $compiler)
     {
         foreach ($this->nodes as $node) {
@@ -83,7 +106,7 @@ class Twig_Node implements Countable, IteratorAggregate
         }
     }
 
-    public function getTemplateLine()
+    public function getLine()
     {
         return $this->lineno;
     }
@@ -96,9 +119,9 @@ class Twig_Node implements Countable, IteratorAggregate
     /**
      * Returns true if the attribute is defined.
      *
-     * @param string $name The attribute name
+     * @param  string  The attribute name
      *
-     * @return bool true if the attribute is defined, false otherwise
+     * @return Boolean true if the attribute is defined, false otherwise
      */
     public function hasAttribute($name)
     {
@@ -106,11 +129,11 @@ class Twig_Node implements Countable, IteratorAggregate
     }
 
     /**
-     * Gets an attribute value by name.
+     * Gets an attribute.
      *
-     * @param string $name
+     * @param  string The attribute name
      *
-     * @return mixed
+     * @return mixed The attribute value
      */
     public function getAttribute($name)
     {
@@ -122,10 +145,10 @@ class Twig_Node implements Countable, IteratorAggregate
     }
 
     /**
-     * Sets an attribute by name to a value.
+     * Sets an attribute.
      *
-     * @param string $name
-     * @param mixed  $value
+     * @param string The attribute name
+     * @param mixed  The attribute value
      */
     public function setAttribute($name, $value)
     {
@@ -133,9 +156,9 @@ class Twig_Node implements Countable, IteratorAggregate
     }
 
     /**
-     * Removes an attribute by name.
+     * Removes an attribute.
      *
-     * @param string $name
+     * @param string The attribute name
      */
     public function removeAttribute($name)
     {
@@ -143,27 +166,27 @@ class Twig_Node implements Countable, IteratorAggregate
     }
 
     /**
-     * Returns true if the node with the given name exists.
+     * Returns true if the node with the given identifier exists.
      *
-     * @param string $name
+     * @param  string  The node name
      *
-     * @return bool
+     * @return Boolean true if the node with the given name exists, false otherwise
      */
     public function hasNode($name)
     {
-        return isset($this->nodes[$name]);
+        return array_key_exists($name, $this->nodes);
     }
 
     /**
      * Gets a node by name.
      *
-     * @param string $name
+     * @param  string The node name
      *
-     * @return Twig_Node
+     * @return Twig_Node A Twig_Node instance
      */
     public function getNode($name)
     {
-        if (!isset($this->nodes[$name])) {
+        if (!array_key_exists($name, $this->nodes)) {
             throw new LogicException(sprintf('Node "%s" does not exist for Node "%s".', $name, get_class($this)));
         }
 
@@ -173,10 +196,10 @@ class Twig_Node implements Countable, IteratorAggregate
     /**
      * Sets a node.
      *
-     * @param string    $name
-     * @param Twig_Node $node
+     * @param string    The node name
+     * @param Twig_Node A Twig_Node instance
      */
-    public function setNode($name, Twig_Node $node)
+    public function setNode($name, $node = null)
     {
         $this->nodes[$name] = $node;
     }
@@ -184,7 +207,7 @@ class Twig_Node implements Countable, IteratorAggregate
     /**
      * Removes a node by name.
      *
-     * @param string $name
+     * @param string The node name
      */
     public function removeNode($name)
     {
@@ -199,18 +222,5 @@ class Twig_Node implements Countable, IteratorAggregate
     public function getIterator()
     {
         return new ArrayIterator($this->nodes);
-    }
-
-    public function setTemplateName($name)
-    {
-        $this->name = $name;
-        foreach ($this->nodes as $node) {
-            $node->setTemplateName($name);
-        }
-    }
-
-    public function getTemplateName()
-    {
-        return $this->name;
     }
 }

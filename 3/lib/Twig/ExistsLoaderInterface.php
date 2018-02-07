@@ -10,8 +10,19 @@
  */
 
 /**
- * Empty interface for Twig 1.x compatibility.
+ * Adds an exists() method for loaders.
+ *
+ * @author Florin Patan <florinpatan@gmail.com>
+ * @deprecated since 1.12 (to be removed in 2.0)
  */
-interface Twig_ExistsLoaderInterface extends Twig_LoaderInterface
+interface Twig_ExistsLoaderInterface
 {
+    /**
+     * Check if we have the source code of a template, given its name.
+     *
+     * @param string $name The name of the template to check if we can load
+     *
+     * @return boolean If the template source code is handled by this loader or not
+     */
+    public function exists($name);
 }

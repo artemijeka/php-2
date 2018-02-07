@@ -17,11 +17,16 @@
  */
 class Twig_Node_Block extends Twig_Node
 {
-    public function __construct($name, Twig_Node $body, $lineno, $tag = null)
+    public function __construct($name, Twig_NodeInterface $body, $lineno, $tag = null)
     {
         parent::__construct(array('body' => $body), array('name' => $name), $lineno, $tag);
     }
 
+    /**
+     * Compiles the node to PHP.
+     *
+     * @param Twig_Compiler A Twig_Compiler instance
+     */
     public function compile(Twig_Compiler $compiler)
     {
         $compiler

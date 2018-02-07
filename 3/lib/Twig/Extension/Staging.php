@@ -10,35 +10,42 @@
  */
 
 /**
- * Used by Twig_Environment as a staging area.
+ * Internal class.
+ *
+ * This class is used by Twig_Environment as a staging area and must not be used directly.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @internal
  */
-final class Twig_Extension_Staging extends Twig_Extension
+class Twig_Extension_Staging extends Twig_Extension
 {
-    private $functions = array();
-    private $filters = array();
-    private $visitors = array();
-    private $tokenParsers = array();
-    private $tests = array();
+    protected $functions = array();
+    protected $filters = array();
+    protected $visitors = array();
+    protected $tokenParsers = array();
+    protected $globals = array();
+    protected $tests = array();
 
-    public function addFunction(Twig_Function $function)
+    public function addFunction($name, $function)
     {
-        $this->functions[$function->getName()] = $function;
+        $this->functions[$name] = $function;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFunctions()
     {
         return $this->functions;
     }
 
-    public function addFilter(Twig_Filter $filter)
+    public function addFilter($name, $filter)
     {
-        $this->filters[$filter->getName()] = $filter;
+        $this->filters[$name] = $filter;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFilters()
     {
         return $this->filters;
@@ -49,6 +56,9 @@ final class Twig_Extension_Staging extends Twig_Extension
         $this->visitors[] = $visitor;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNodeVisitors()
     {
         return $this->visitors;
@@ -59,18 +69,45 @@ final class Twig_Extension_Staging extends Twig_Extension
         $this->tokenParsers[] = $parser;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getTokenParsers()
     {
         return $this->tokenParsers;
     }
 
-    public function addTest(Twig_Test $test)
+    public function addGlobal($name, $value)
     {
-        $this->tests[$test->getName()] = $test;
+        $this->globals[$name] = $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobals()
+    {
+        return $this->globals;
+    }
+
+    public function addTest($name, $test)
+    {
+        $this->tests[$name] = $test;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTests()
     {
         return $this->tests;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'staging';
     }
 }

@@ -5,3 +5,13 @@
 body {
     background-color: #e0e0e0;
 }
+.images {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.mini_image {
+    margin: 10px;
+    border-radius: 10px;
+}

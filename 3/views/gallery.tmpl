@@ -1,5 +1,5 @@
-{% for arrayOfPathToMiniImage in arrayOfPathToMiniImages %}
-<div>
-    <img src="{{arrayOfPathToMiniImage}}" />
+<div class="images">
+    {% for arrayOfPathToMiniImage in arrayOfPathToMiniImages %}
+        <img src="{{arrayOfPathToMiniImage}}" class="mini_image" />
+    {% endfor %}
 </div>
-{% endfor %}

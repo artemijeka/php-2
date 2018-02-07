@@ -3,4 +3,16 @@
 require_once 'lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 
+try {
+  // указываем где хранятся шаблоны
+  $loader = new Twig_Loader_Filesystem('./views');
+
+  // инициализируем Twig
+  $twig = new Twig_Environment($loader);
+
+} catch (Exception $e) {
+  die ('ERROR: ' . $e->getMessage());
+}
+
 require_once 'controllers/main.php';
+require_once 'controllers/gallery.php';

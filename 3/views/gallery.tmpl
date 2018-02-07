@@ -1,2 +1,5 @@
-<h1>It is hw 3/1</h1>
-<h2>Gallery:</h2>
+{% for arrayOfPathToImages in arrayOfPathToImages %}
+<div>
+    <img src="{{arrayOfPathToImages}}" />
+</div>
+{% endfor %}

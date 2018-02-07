@@ -1,9 +1,16 @@
 <?php
 
-$arrayOfPathToImages = array(
-    '1' => './data/images/1.jpg',
-    '2' => './data/images/2.jpg'
-);
+$arrayOfPathToMiniImages = array();
+
+include_once 'models/count_files.php';
+$countFiles = count_files('data/images');
+
+include_once 'models/resize_images.php';
+for ($i=1; $i<=$countFiles; $i++){
+   resize(400, "data/images/mini/$i" . ".jpg", "data/images/$i" . ".jpg"); 
+   $arrayOfPathToMiniImages["$i"] = "data/images/mini/$i";
+}
+
 
 try {
     // подгружаем шаблон
@@ -12,7 +19,7 @@ try {
     // передаём в шаблон переменные и значения
     // выводим сформированное содержание
     echo $gallery->render(array(
-      'arrayOfPathToImages' => $arrayOfPathToImages
+      'arrayOfPathToMiniImages' => $arrayOfPathToMiniImages
     ));
 } catch (Exception $e) {
     die('ERROR: ' . $e->getMessage());

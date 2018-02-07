@@ -1,5 +1,7 @@
 <div class="images">
     {% for arrayOfPathToMiniImage in arrayOfPathToMiniImages %}
-        <img src="{{arrayOfPathToMiniImage}}" class="mini_image" />
+        <a target="_blank" href="controllers/image.php">
+            <img src="{{arrayOfPathToMiniImage}}" class="mini_image" />
+        </a>
     {% endfor %}
 </div>

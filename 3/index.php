@@ -1,0 +1,28 @@
+<?php
+// подгружаем и активируем авто-загрузчик Twig-а
+require_once 'Twig/Autoloader.php';
+Twig_Autoloader::register();
+
+try {
+  // указывае где хранятся шаблоны
+  $loader = new Twig_Loader_Filesystem('views');
+  
+  // инициализируем Twig
+  $twig = new Twig_Environment($loader);
+  
+  // подгружаем шаблон
+  $template = $twig->loadTemplate('gallery.tmpl');
+  
+  // передаём в шаблон переменные и значения
+  // выводим сформированное содержание
+  echo $template->render(array(
+    'name' => 'Clark Kent',
+    'username' => 'ckent',
+    'password' => 'krypt0n1te',
+  ));
+  
+} catch (Exception $e) {
+  die ('ERROR: ' . $e->getMessage());
+}
+?>
+<!DOCTYPE html>

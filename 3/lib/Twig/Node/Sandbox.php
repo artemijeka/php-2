@@ -16,16 +16,21 @@
  */
 class Twig_Node_Sandbox extends Twig_Node
 {
-    public function __construct(Twig_Node $body, $lineno, $tag = null)
+    public function __construct(Twig_NodeInterface $body, $lineno, $tag = null)
     {
         parent::__construct(array('body' => $body), array(), $lineno, $tag);
     }
 
+    /**
+     * Compiles the node to PHP.
+     *
+     * @param Twig_Compiler A Twig_Compiler instance
+     */
     public function compile(Twig_Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("\$sandbox = \$this->env->getExtension('Twig_Extension_Sandbox');\n")
+            ->write("\$sandbox = \$this->env->getExtension('sandbox');\n")
             ->write("if (!\$alreadySandboxed = \$sandbox->isSandboxed()) {\n")
             ->indent()
             ->write("\$sandbox->enableSandbox();\n")

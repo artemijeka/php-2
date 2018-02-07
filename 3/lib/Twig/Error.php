@@ -25,43 +25,49 @@
  * and line number) yourself by passing them to the constructor. If some or all
  * these information are not available from where you throw the exception, then
  * this class will guess them automatically (when the line number is set to -1
- * and/or the name is set to null). As this is a costly operation, this
- * can be disabled by passing false for both the name and the line number
+ * and/or the filename is set to null). As this is a costly operation, this
+ * can be disabled by passing false for both the filename and the line number
  * when creating a new instance of this class.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Twig_Error extends Exception
 {
-    private $lineno;
-    private $name;
-    private $rawMessage;
+    protected $lineno;
+    protected $filename;
+    protected $rawMessage;
+    protected $previous;
 
     /**
      * Constructor.
      *
-     * Set both the line number and the name to false to
+     * Set both the line number and the filename to false to
      * disable automatic guessing of the original template name
      * and line number.
      *
      * Set the line number to -1 to enable its automatic guessing.
-     * Set the name to null to enable its automatic guessing.
+     * Set the filename to null to enable its automatic guessing.
      *
      * By default, automatic guessing is enabled.
      *
      * @param string    $message  The error message
-     * @param int       $lineno   The template line where the error occurred
-     * @param string    $name     The template logical name where the error occurred
+     * @param integer   $lineno   The template line where the error occurred
+     * @param string    $filename The template file name where the error occurred
      * @param Exception $previous The previous exception
      */
-    public function __construct($message, $lineno = -1, $name = null, Exception $previous = null)
+    public function __construct($message, $lineno = -1, $filename = null, Exception $previous = null)
     {
-        parent::__construct('', 0, $previous);
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+            $this->previous = $previous;
+            parent::__construct('');
+        } else {
+            parent::__construct('', 0, $previous);
+        }
 
         $this->lineno = $lineno;
-        $this->name = $name;
+        $this->filename = $filename;
 
-        if (-1 === $lineno || null === $name) {
+        if (-1 === $this->lineno || null === $this->filename) {
             $this->guessTemplateInfo();
         }
 
@@ -81,23 +87,23 @@ class Twig_Error extends Exception
     }
 
     /**
-     * Gets the logical name where the error occurred.
+     * Gets the filename where the error occurred.
      *
-     * @return string The name
+     * @return string The filename
      */
-    public function getTemplateName()
+    public function getTemplateFile()
     {
-        return $this->name;
+        return $this->filename;
     }
 
     /**
-     * Sets the logical name where the error occurred.
+     * Sets the filename where the error occurred.
      *
-     * @param string $name The name
+     * @param string $filename The filename
      */
-    public function setTemplateName($name)
+    public function setTemplateFile($filename)
     {
-        $this->name = $name;
+        $this->filename = $filename;
 
         $this->updateRepr();
     }
@@ -105,7 +111,7 @@ class Twig_Error extends Exception
     /**
      * Gets the template line where the error occurred.
      *
-     * @return int The template line
+     * @return integer The template line
      */
     public function getTemplateLine()
     {
@@ -115,7 +121,7 @@ class Twig_Error extends Exception
     /**
      * Sets the template line where the error occurred.
      *
-     * @param int $lineno The template line
+     * @param integer $lineno The template line
      */
     public function setTemplateLine($lineno)
     {
@@ -149,13 +155,7 @@ class Twig_Error extends Exception
         throw new BadMethodCallException(sprintf('Method "Twig_Error::%s()" does not exist.', $method));
     }
 
-    public function appendMessage($rawMessage)
-    {
-        $this->rawMessage .= $rawMessage;
-        $this->updateRepr();
-    }
-
-    private function updateRepr()
+    protected function updateRepr()
     {
         $this->message = $this->rawMessage;
 
@@ -165,19 +165,13 @@ class Twig_Error extends Exception
             $dot = true;
         }
 
-        $questionMark = false;
-        if ('?' === substr($this->message, -1)) {
-            $this->message = substr($this->message, 0, -1);
-            $questionMark = true;
-        }
-
-        if ($this->name) {
-            if (is_string($this->name) || (is_object($this->name) && method_exists($this->name, '__toString'))) {
-                $name = sprintf('"%s"', $this->name);
+        if ($this->filename) {
+            if (is_string($this->filename) || (is_object($this->filename) && method_exists($this->filename, '__toString'))) {
+                $filename = sprintf('"%s"', $this->filename);
             } else {
-                $name = json_encode($this->name);
+                $filename = json_encode($this->filename);
             }
-            $this->message .= sprintf(' in %s', $name);
+            $this->message .= sprintf(' in %s', $filename);
         }
 
         if ($this->lineno && $this->lineno >= 0) {
@@ -187,32 +181,22 @@ class Twig_Error extends Exception
         if ($dot) {
             $this->message .= '.';
         }
-
-        if ($questionMark) {
-            $this->message .= '?';
-        }
     }
 
-    private function guessTemplateInfo()
+    protected function guessTemplateInfo()
     {
         $template = null;
-        $templateClass = null;
-
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT);
-        foreach ($backtrace as $trace) {
+        foreach (debug_backtrace() as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Twig_Template && 'Twig_Template' !== get_class($trace['object'])) {
-                $currentClass = get_class($trace['object']);
-                $isEmbedContainer = 0 === strpos($templateClass, $currentClass);
-                if (null === $this->name || ($this->name == $trace['object']->getTemplateName() && !$isEmbedContainer)) {
+                if (null === $this->filename || $this->filename == $trace['object']->getTemplateName()) {
                     $template = $trace['object'];
-                    $templateClass = get_class($trace['object']);
                 }
             }
         }
 
-        // update template name
-        if (null !== $template && null === $this->name) {
-            $this->name = $template->getTemplateName();
+        // update template filename
+        if (null !== $template && null === $this->filename) {
+            $this->filename = $template->getTemplateName();
         }
 
         if (null === $template || $this->lineno > -1) {
@@ -222,20 +206,13 @@ class Twig_Error extends Exception
         $r = new ReflectionObject($template);
         $file = $r->getFileName();
 
-        // hhvm has a bug where eval'ed files comes out as the current directory
-        if (is_dir($file)) {
-            $file = '';
-        }
-
         $exceptions = array($e = $this);
-        while ($e = $e->getPrevious()) {
+        while (($e instanceof self || method_exists($e, 'getPrevious')) && $e = $e->getPrevious()) {
             $exceptions[] = $e;
         }
 
         while ($e = array_pop($exceptions)) {
             $traces = $e->getTrace();
-            array_unshift($traces, array('file' => $e->getFile(), 'line' => $e->getLine()));
-
             while ($trace = array_shift($traces)) {
                 if (!isset($trace['file']) || !isset($trace['line']) || $file != $trace['file']) {
                     continue;

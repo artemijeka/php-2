@@ -17,9 +17,9 @@
  */
 class Twig_Node_For extends Twig_Node
 {
-    private $loop;
+    protected $loop;
 
-    public function __construct(Twig_Node_Expression_AssignName $keyTarget, Twig_Node_Expression_AssignName $valueTarget, Twig_Node_Expression $seq, Twig_Node_Expression $ifexpr = null, Twig_Node $body, Twig_Node $else = null, $lineno, $tag = null)
+    public function __construct(Twig_Node_Expression_AssignName $keyTarget, Twig_Node_Expression_AssignName $valueTarget, Twig_Node_Expression $seq, Twig_Node_Expression $ifexpr = null, Twig_NodeInterface $body, Twig_NodeInterface $else = null, $lineno, $tag = null)
     {
         $body = new Twig_Node(array($body, $this->loop = new Twig_Node_ForLoop($lineno, $tag)));
 
@@ -27,25 +27,26 @@ class Twig_Node_For extends Twig_Node
             $body = new Twig_Node_If(new Twig_Node(array($ifexpr, $body)), null, $lineno, $tag);
         }
 
-        $nodes = array('key_target' => $keyTarget, 'value_target' => $valueTarget, 'seq' => $seq, 'body' => $body);
-        if (null !== $else) {
-            $nodes['else'] = $else;
-        }
-
-        parent::__construct($nodes, array('with_loop' => true, 'ifexpr' => null !== $ifexpr), $lineno, $tag);
+        parent::__construct(array('key_target' => $keyTarget, 'value_target' => $valueTarget, 'seq' => $seq, 'body' => $body, 'else' => $else), array('with_loop' => true, 'ifexpr' => null !== $ifexpr), $lineno, $tag);
     }
 
+    /**
+     * Compiles the node to PHP.
+     *
+     * @param Twig_Compiler A Twig_Compiler instance
+     */
     public function compile(Twig_Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("\$context['_parent'] = \$context;\n")
+            // the (array) cast bypasses a PHP 5.2.6 bug
+            ->write("\$context['_parent'] = (array) \$context;\n")
             ->write("\$context['_seq'] = twig_ensure_traversable(")
             ->subcompile($this->getNode('seq'))
             ->raw(");\n")
         ;
 
-        if ($this->hasNode('else')) {
+        if (null !== $this->getNode('else')) {
             $compiler->write("\$context['_iterated'] = false;\n");
         }
 
@@ -74,14 +75,14 @@ class Twig_Node_For extends Twig_Node
             }
         }
 
-        $this->loop->setAttribute('else', $this->hasNode('else'));
+        $this->loop->setAttribute('else', null !== $this->getNode('else'));
         $this->loop->setAttribute('with_loop', $this->getAttribute('with_loop'));
         $this->loop->setAttribute('ifexpr', $this->getAttribute('ifexpr'));
 
         $compiler
             ->write("foreach (\$context['_seq'] as ")
             ->subcompile($this->getNode('key_target'))
-            ->raw(' => ')
+            ->raw(" => ")
             ->subcompile($this->getNode('value_target'))
             ->raw(") {\n")
             ->indent()
@@ -90,7 +91,7 @@ class Twig_Node_For extends Twig_Node
             ->write("}\n")
         ;
 
-        if ($this->hasNode('else')) {
+        if (null !== $this->getNode('else')) {
             $compiler
                 ->write("if (!\$context['_iterated']) {\n")
                 ->indent()
@@ -106,6 +107,6 @@ class Twig_Node_For extends Twig_Node
         $compiler->write('unset($context[\'_seq\'], $context[\'_iterated\'], $context[\''.$this->getNode('key_target')->getAttribute('name').'\'], $context[\''.$this->getNode('value_target')->getAttribute('name').'\'], $context[\'_parent\'], $context[\'loop\']);'."\n");
 
         // keep the values set in the inner context for variables defined in the outer context
-        $compiler->write("\$context = array_intersect_key(\$context, \$_parent) + \$_parent;\n");
+        $compiler->write("\$context = array_merge(\$_parent, array_intersect_key(\$context, \$_parent));\n");
     }
 }

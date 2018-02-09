@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @param string $dirPath - путь к диретории
  * @return array  - массив имён изображений
  */
-
 function scan_dir_images($dirPath)
 {
     $result = array();
@@ -13,10 +13,6 @@ function scan_dir_images($dirPath)
      * 
      */
     array_splice($scanDir, 0, 2);
-    
-//    echo '<pre>';
-//    var_dump($scanDir);
-//    echo '</pre>';
     
     return $scanDir;
 }

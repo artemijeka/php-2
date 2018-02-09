@@ -4,9 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/controllers/gallery.php</file>
+            <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/controllers/image.php</file>
             <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/views/main.tmpl</file>
             <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/views/gallery.tmpl</file>
             <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/controllers/main.php</file>
+            <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/views/image.tmpl</file>
+            <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/models/scan_dir_images.php</file>
             <file>file:/home/artem/Dropbox/WebMaster/GeekBrains/php-2/php-2.loc/3/index.php</file>
         </group>
     </open-files>

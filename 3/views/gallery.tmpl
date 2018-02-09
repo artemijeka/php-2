@@ -1,7 +1,7 @@
 <div class="images">
-    {% for arrayOfPathToMiniImage in arrayOfPathToMiniImages %}
-        <a target="_blank" href="controllers/image.php">
-            <img src="{{arrayOfPathToMiniImage}}" class="mini_image" />
+    {% for nameImage in arrayNameImages %}
+        <a target="_blank" href="../controllers/image.php?name={{nameImage}}">
+            <img src="data/mini_images/{{nameImage}}" class="mini_image" />
         </a>
     {% endfor %}
 </div>

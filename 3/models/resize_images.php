@@ -1,7 +1,7 @@
 <?php
 
 // Функция уменьшения изображения.
-function resize($newWidth, $targetFile, $originalFile) {
+function resize_images($newWidth, $targetFile, $originalFile) {
 
     $info = getimagesize($originalFile);
     $mime = $info['mime'];

@@ -3,38 +3,47 @@
 // Объявление массива для путей к маленьким изображениям:
 $arrayOfPathToMiniImages = array();
 
-// Подключаем модель подсчета файлов:
-include_once 'models/count_files.php';
-
-// Подсчет кол-ва файлов в папке изображений:
-$countFiles = count_files('data/images/');
 // Подключаем модель изменения изображения:
 include_once 'models/resize_images.php';
 
-// В цикле обрабатываем папку с изображениями:
-for ($i=1; $i<=$countFiles; $i++){
-    // Путь к маленькому изображению:
-    $miniImage = "data/mini_images/$i" . ".jpg";
-    // Путь к большому изображению:
-    $image = "data/images/$i" . ".jpg";
-    // Уменьшаем изображения:
-    resize(400, $miniImage, $image); 
-    // Присваиваем в массив путь к маленькому изображению:
-    $arrayOfPathToMiniImages["$i"] = $miniImage;
-    // Права на данное изображение:
-//    chmod($miniImage, 0755);
-}
+// Подключаем модель сканирования названий изображений
+include_once 'models/scan_dir_images.php';
 
-
-try {
+try { 
     // подгружаем шаблон
     $gallery = $twig->loadTemplate('gallery.tmpl');
+    
+    // Путь к оригинальным изображениям:
+    $imageDirPath = "data/images/";
+        
+    // Сканирую дирректорию на наличие изображений:
+    $arrayNameImages = scan_dir_images($imageDirPath);
+    
+    // Циклом по массиву имен изображений для уменьшения изображений:
+    foreach ($arrayNameImages as $value){
+        
+        // Путь к маленькому изображению:
+        $miniImage = "data/mini_images/" . $value;
+        
+        // Путь к оригинальному изображению:
+        $image = "data/images/" . $value;
+        
+        // Проверка существования файла:ss
+        if (!file_exists($miniImage)){
+            // Уменьшаем изображение:
+            resize_images(400, $miniImage, $image);
+        }
+        
+    }
+//        echo $gallery->render(array(
+//          'pathToBigImage' => $image
+//        ));
 
-    // передаём в шаблон переменные и значения
-    // выводим сформированное содержание
-    echo $gallery->render(array(
-      'arrayOfPathToMiniImages' => $arrayOfPathToMiniImages
+    // Отдаем в галерею массив с именами изображений:
+     echo $gallery->render(array(
+          'arrayNameImages' => $arrayNameImages
     ));
-} catch (Exception $e) {
+      
+} catch (Exception $e) { // Отлов исключений
     die('ERROR: ' . $e->getMessage());
 }

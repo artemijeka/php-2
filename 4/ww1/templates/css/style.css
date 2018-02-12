@@ -1,0 +1,12 @@
+.small_photo {
+    margin: 10px;
+    float: left;
+}
+
+.full_photo {
+    margin: 10px;
+}
+.full_photo img {
+    width: 100%;
+    /*height: 80%;*/
+}

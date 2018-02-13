@@ -1,0 +1,14 @@
+/array.test
+/constant.test
+/defined.test
+/defined_for_attribute.test
+/defined_for_blocks.test
+/defined_for_blocks_with_template.test
+/defined_for_constants.test
+/empty.test
+/even.test
+/in.test
+/in_with_objects.test
+/iterable.test
+/null_coalesce.test
+/odd.test

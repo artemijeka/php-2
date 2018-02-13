@@ -1,0 +1,11 @@
+/child_contents_outside_blocks.test
+/multiline_array_with_undefined_variable.test
+/multiline_array_with_undefined_variable_again.test
+/multiline_function_with_undefined_variable.test
+/multiline_function_with_unknown_argument.test
+/multiline_tag_with_undefined_variable.test
+/syntax_error_in_reused_template.test
+/unclosed_tag.test
+/undefined_parent.test
+/undefined_template_in_child_template.test
+/undefined_trait.test

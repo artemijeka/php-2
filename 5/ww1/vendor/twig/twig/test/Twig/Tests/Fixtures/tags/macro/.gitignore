@@ -1,0 +1,11 @@
+/basic.test
+/endmacro_name.test
+/external.test
+/from.test
+/from_with_reserved_name.test
+/global.test
+/import_with_reserved_nam.test
+/reserved_name.test
+/self_import.test
+/special_chars.test
+/super_globals.test

@@ -1,9 +1,0 @@
-/basic.test
-/expression.test
-/ignore_missing.test
-/missing.test
-/missing_nested.test
-/only.test
-/template_instance.test
-/templates_as_array.test
-/with_variables.test

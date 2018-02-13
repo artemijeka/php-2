@@ -1,0 +1,13 @@
+/AbstractExtension.php
+/CoreExtension.php
+/DebugExtension.php
+/EscaperExtension.php
+/ExtensionInterface.php
+/GlobalsInterface.php
+/InitRuntimeInterface.php
+/OptimizerExtension.php
+/ProfilerExtension.php
+/RuntimeExtensionInterface.php
+/SandboxExtension.php
+/StagingExtension.php
+/StringLoaderExtension.php

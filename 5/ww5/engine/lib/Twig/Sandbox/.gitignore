@@ -1,0 +1,6 @@
+/SecurityError.php
+/SecurityNotAllowedFilterError.php
+/SecurityNotAllowedFunctionError.php
+/SecurityNotAllowedTagError.php
+/SecurityPolicy.php
+/SecurityPolicyInterface.php

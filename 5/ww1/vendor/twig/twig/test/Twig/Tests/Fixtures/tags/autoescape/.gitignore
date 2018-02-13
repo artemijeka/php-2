@@ -1,0 +1,15 @@
+/basic.test
+/blocks.test
+/double_escaping.test
+/functions.test
+/literal.test
+/nested.test
+/objects.test
+/raw.test
+/strategy.legacy.test
+/strategy.test
+/type.test
+/with_filters.test
+/with_filters_arguments.test
+/with_pre_escape_filters.test
+/with_preserves_safety_filters.test

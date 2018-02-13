@@ -1,0 +1,12 @@
+/aliases.test
+/basic.test
+/deep.test
+/deep_empty.test
+/inheritance.test
+/inheritance2.test
+/multiple.test
+/multiple_aliases.test
+/parent_block.test
+/parent_block2.test
+/parent_block3.test
+/use_with_parent.test

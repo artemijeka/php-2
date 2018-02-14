@@ -2,7 +2,7 @@
 require_once 'vendor/autoload.php';
 
 // Коннект к базе данных
-require_once 'models/db_connect.php';
+require_once 'model/db_connect.php';
 
 $connect = new ConnectToDB();
 $data = $connect -> getRows(15);
@@ -14,7 +14,7 @@ else {
     $page = ++$_GET['page'];
 }
 
-$loader = new Twig_Loader_Filesystem('views');
+$loader = new Twig_Loader_Filesystem('view');
 $twig = new Twig_Environment($loader);
 $template = $twig -> loadTemplate('catalog.tmpl');
 

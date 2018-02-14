@@ -3,7 +3,7 @@
  * Класс устанавливает соединение с бд.
  */
 
-include_once 'config.php';
+require 'config.php';
 
 class ConnectToDB
 {
@@ -38,9 +38,15 @@ class ConnectToDB
             $limit += $numberRows;
         }
         
-        $sql = $this->dbConnect->prepare("SELECT brand.name, product.name, product.price FROM product LEFT JOIN brand.name USING (brand_id) LIMIT :limit";
-        $sql -> bindParam(':limit', $limit);
-        $sql -> execute();
+//        var_dump( $this -> dbConnect );
+        
+        $sql = "SELECT brand.name, product.name, product.price FROM product LEFT JOIN brand.name USING (brand_id) LIMIT $limit";
+        $query = $this -> dbConnect -> query($sql);
+        $query = execute();
+        
+//        $sql = $this -> dbConnect -> prepare("SELECT brand.name, product.name, product.price FROM product LEFT JOIN brand.name USING (brand_id) LIMIT :limit");
+//        $sql -> bindParam(':limit', $limit);
+//        $sql -> execute();
         
         while ($row = $sql -> fetchObject()) {
             $data[] = $row;

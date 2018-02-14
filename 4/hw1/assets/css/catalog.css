@@ -1,0 +1,69 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	background-color: grey;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1200px;
+	padding: 30px;
+	margin-bottom: 50px;
+	background-color: white;
+}
+
+.container .catalog { 
+	display: grid;
+	grid-template-columns: repeat(6, 1fr); 
+	grid-gap: 5px;
+}
+
+.container .catalog .product {	
+	color: black;
+	padding: 4px;
+	border: 2px inset blue;
+	padding-left: 10px;
+}
+.container .catalog .product img { 
+	max-width: 100px;
+	height: inherit;
+	display: block;
+	margin: 0 auto;
+}
+
+.container .catalog .product span {
+	display: block;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.container .catalog .product .brand {
+	text-transform: uppercase;
+	font-weight: 700;
+}
+.container .catalog .product .brand,
+.container .catalog .product .name {
+	text-align: center;
+}
+
+.container .catalog .product .price {
+	float: right;
+	font-size: 22px; 
+	font-weight: 700;
+	margin-top: 10px;
+	color: red;
+}
+.container .btnMore {
+	display: inline-block;
+	color: blue;
+	font-size: 22px;
+	font-weight: 500;
+	border: 2px outset red;
+	padding: 5px;
+	margin: 5px 0;
+	float: right;
+}
+.clearfix {
+	clear:both;
+}

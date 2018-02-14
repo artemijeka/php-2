@@ -3,6 +3,8 @@
  * Файл конфигурации.
  */
 
+//echo "<br>Config.php<br>";
+
 // Базы данных.
 const DB_HOST = 'localhost';
 const DB_NAME = 'php_shop';

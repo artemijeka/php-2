@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Catalog</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/catalog.css">
+    </head>
+    <body>
+        <div class="container">
+		<h1>Catalog</h1>
+		<a href=""></a>
+		<div class="catalog">
+			{% for item in data %}   
+			<div class="product">
+				<img src="assets/img/smartphone.jpg" alt="product picture">
+				<span class="brand">{{ item.brand }}</span>
+				<span class="name">{{ item.name }}</span>
+				<span class="price">{{ item.price }}.00</span>
+			</div>
+			{% endfor %}			
+		</div>
+		<a class="btnMore" href="?page={{ page }}">More..</a>
+		<div class="clearfix"></div>
+	</div>
+    </body>
+</html>

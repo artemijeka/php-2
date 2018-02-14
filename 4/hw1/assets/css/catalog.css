@@ -54,7 +54,8 @@ body {
 	margin-top: 10px;
 	color: red;
 }
-.container .btnMore {
+.container .btnMore,
+.container .btnMin {
 	display: inline-block;
 	color: blue;
 	font-size: 22px;

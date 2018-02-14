@@ -38,15 +38,11 @@ class ConnectToDB
             $limit += $numberRows;
         }
         
-        $sql = "SELECT brand.name as brand, product.name, product.price FROM product LEFT JOIN brand.name USING (brand_id) LIMIT $limit";
-        $query = $this -> dbConnect -> query($sql);
-        $query = execute();
+        $query = $this -> dbConnect -> prepare("SELECT brand.name as brand, product.name, product.price FROM product LEFT JOIN brand USING (brand_id) LIMIT $limit");
+//      $query -> bindParam(':limit', $limit);
+        $query -> execute();
         
-//        $sql = $this -> dbConnect -> prepare("SELECT brand.name, product.name, product.price FROM product LEFT JOIN brand.name USING (brand_id) LIMIT :limit");
-//        $sql -> bindParam(':limit', $limit);
-//        $sql -> execute();
-        
-        while ($row = $sql -> fetchObject()) {
+        while ($row = $query -> fetchObject()) {
             $data[] = $row;
         }
         

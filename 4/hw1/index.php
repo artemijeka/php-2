@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 require_once 'models/db_connect.php';
 
 $connect = new ConnectToDB();
-$data = $connect -> getRows(25);
+$data = $connect -> getRows(15);
 
 if (!isset($_GET['page'])) {
     $page = 2;

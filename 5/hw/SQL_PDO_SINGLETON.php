@@ -11,7 +11,7 @@ const MYSQL_PASSWORD = '';
 // Для теста:
 $table = 'product';
 $object = array(
-  'iPhone 5S'=>'iPhone 5'
+  'name'=>'iPhone 5'
 );
 $where = 'id=1';
 $res = SQL_PDO_SINGLETON::Instance()->Update($table,$object,$where);
@@ -64,7 +64,7 @@ class SQL_PDO_SINGLETON
 		
 		foreach($object as $key => $value){
 			$columns[] = $key;
-			$masks[] = ":$value"; // Зачем двоеточие?
+			$masks[] = "'$value'";
 			
 			if($value === null){
 			    $object[$key] = 'NULL';
@@ -93,10 +93,8 @@ class SQL_PDO_SINGLETON
 		 
 		foreach($object as $key => $value){
 			
-			$sets[] = "$key=:$value";
-                        echo "<pre>";
-                        var_dump($sets);
-                        echo "</pre>";
+			$sets[] = "$key='$value'";
+                                                
 			if($value === NULL){
 				$object[$key]='NULL';
 			}
@@ -104,7 +102,9 @@ class SQL_PDO_SINGLETON
 		 
 		$sets_s = implode(',',$sets);
 		$query = "UPDATE $table SET $sets_s WHERE $where";
-
+//echo "<pre>"; // Проверочка.
+//var_dump($query); // Проверочка.
+// echo "</pre>"; // Проверочка.
 		$q = $this->db->prepare($query);
 		$q->execute($object);
 

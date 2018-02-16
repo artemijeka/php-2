@@ -13,15 +13,12 @@ class App
     }
 	
   //http://site.ru/index.php?path=news/edit/5
-	
-
-	
 
     protected static function web($url)
     {
         $url = explode("/", $url);
         if (isset($url[0])) {
-            $_GET['page'] = $url[0];//Часть имени класса контроллера
+            $_GET['page'] = $url[0];//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (isset($url[1])) {
                 if (is_numeric($url[1])) {
                     $_GET['id'] = $url[1];
@@ -33,12 +30,12 @@ class App
                 }
             }
         }
-        else{
+        else {
             $_GET['page'] = 'Index';
         }
 
         if (isset($_GET['page'])) {
-            $controllerName = ucfirst($_GET['page']) . 'Controller';//IndexController
+            $controllerName = ucfirst($_GET['page']) . 'Controller'; // IndexController
             $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
             $controller = new $controllerName();
             

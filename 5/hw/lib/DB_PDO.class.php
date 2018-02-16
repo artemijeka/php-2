@@ -1,26 +1,23 @@
 <?php
-
-// Определение драйвера бд:
-const DB_DRIVER = 'mysql';
-// И остальные настройки для подключения к бд:
-const MYSQL_SERVER = 'localhost';
-const MYSQL_DB = 'php_shop';
-const MYSQL_USER = 'root';
-const MYSQL_PASSWORD = '';
+/**
+ * EXEMPLE PDO SINGLETON SQL DB QUERY CLASS
+ * @author Сергей Герасименко <gerasimenkosv@bk.ru>
+ * @author правки от Артем Кузнецов <artem.kuznecov.samara@gmail.com>
+ */
 
 // Для теста:
-$table = 'product';
-$object = array(
-  'name'=>'iPhone 5'
-);
-$where = 'id=1';
-$res = SQL_PDO_SINGLETON::Instance()->Update($table,$object,$where);
-echo "<pre>";
-var_dump($res);
-echo "</pre>";
+//$table = 'product';
+//$object = array(
+//  'name'=>'iPhone 5'
+//);
+//$where = 'id=1';
+//$res = SQL_PDO_SINGLETON::Instance()->Update($table,$object,$where);
+//echo "<pre>";
+//var_dump($res);
+//echo "</pre>";
 // Конец теста.
         
-class SQL_PDO_SINGLETON
+class DB_PDO
 {
 	private static $instance;
 	private $db;

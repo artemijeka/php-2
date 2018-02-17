@@ -10,5 +10,10 @@ class IndexController extends Controller
         parent::__construct();
         $this->title .= ' | Главная';
     }
+    
+    public function login()
+    {
+        $this->title .= ' | Авторизован';
+    }
 
 }

@@ -36,14 +36,14 @@ class App
                     $_GET['id'] = $url[2];
                 }
             }
-            var_dump($_GET);
+//            var_dump($_GET);
         }
         else {
             $_GET['page'] = 'index';
         }
 
         if (isset($_GET['page'])) {
-            $controllerName = ucfirst($_GET['page']) . 'Controller'; // IndexController
+            $controllerName = ucfirst($_GET['page']) . 'Controller'; // Exemple IndexController
             $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
             $controller = new $controllerName();
             
@@ -52,14 +52,13 @@ class App
                 'title' => $controller->title,
                 'categories' => Category::getCategories(0)
             ];
-
+//            var_dump($data['content_data']);
             $view = $controller->view . '/' . $methodName . '.html';
             if (!isset($_GET['asAjax'])) {
                 $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
                 $twig = new Twig_Environment($loader);
                 $template = $twig->loadTemplate($view);
                 
-
                 echo $template->render($data);
             } else {
                 echo json_encode($data);

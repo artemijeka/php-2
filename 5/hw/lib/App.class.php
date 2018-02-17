@@ -12,6 +12,9 @@ class App
         db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
 
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
+            /**
+             * Проверяет задан ли path в GET параметре.
+             */
             self::web(isset($_GET['path']) ? $_GET['path'] : '');
         }
     }
@@ -22,7 +25,7 @@ class App
     {
         $url = explode("/", $url);
         if (!empty($url[0])) {
-            $_GET['page'] = $url[0];//����� ����� ������ �����������
+            $_GET['page'] = $url[0];
             if (!empty($url[1])) {
                 if (is_numeric($url[1])) {
                     $_GET['id'] = $url[1];
@@ -33,6 +36,7 @@ class App
                     $_GET['id'] = $url[2];
                 }
             }
+            var_dump($_GET);
         }
         else {
             $_GET['page'] = 'index';

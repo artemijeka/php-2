@@ -1,9 +1,4 @@
 <?php
-/**
- * EXEMPLE PDO SINGLETON SQL DB QUERY CLASS
- * @author Сергей Герасименко <gerasimenkosv@bk.ru>
- * @author правки от Артем Кузнецов <artem.kuznecov.samara@gmail.com>
- */
 
 // Для теста:
 //$table = 'product';
@@ -16,8 +11,13 @@
 //var_dump($res);
 //echo "</pre>";
 // Конец теста.
-        
-class DB_PDO
+
+/**
+ * EXEMPLE PDO SINGLETON SQL DB QUERY CLASS
+ * @author Сергей Герасименко <gerasimenkosv@bk.ru>
+ * @author правки от Артем Кузнецов <artem.kuznecov.samara@gmail.com>
+ */    
+class DbQuery
 {
 	private static $instance;
 	private $db;

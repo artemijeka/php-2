@@ -2,9 +2,13 @@
 
 class App 
 {
-    public static function Init() 
+    public static function init() 
     {
         date_default_timezone_set('Europe/Moscow');
+        /**
+         * Подключение к бд через singleton и pdo.
+         * Данные для подключения берутся в классе Config
+         */
         db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
 
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
@@ -17,21 +21,21 @@ class App
     protected static function web($url)
     {
         $url = explode("/", $url);
-        if (isset($url[0])) {
+        if (!empty($url[0])) {
             $_GET['page'] = $url[0];//����� ����� ������ �����������
-            if (isset($url[1])) {
+            if (!empty($url[1])) {
                 if (is_numeric($url[1])) {
                     $_GET['id'] = $url[1];
                 } else {
                     $_GET['action'] = $url[1];
                 }
-                if (isset($url[2])) {
+                if (!empty($url[2])) {
                     $_GET['id'] = $url[2];
                 }
             }
         }
         else {
-            $_GET['page'] = 'Index';
+            $_GET['page'] = 'index';
         }
 
         if (isset($_GET['page'])) {

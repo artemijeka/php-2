@@ -2,8 +2,9 @@
 
 class UserController extends Controller
 {
-    function index(){
-
-    }
+    public $title = 'Пользователь';
+    
+//    function index(){}
+    
 
 }

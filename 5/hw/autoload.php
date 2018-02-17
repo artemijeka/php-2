@@ -4,8 +4,6 @@ Twig_Autoloader::register();
 
 spl_autoload_register("gbStandardAutoload");
 
-$test = new Test();
-
 function gbStandardAutoload($className)
 {
     $dirs = [
@@ -19,8 +17,8 @@ function gbStandardAutoload($className)
     $found = false;
     foreach ($dirs as $dir) {
         $fileName = __DIR__ . '/' . $dir . '/' . $className . '.class.php';
+        
         if (is_file($fileName)) {
-
             require_once($fileName);
             $found = true;
         }

@@ -2,10 +2,11 @@
 <html>
     <head>
         <title>{{ title }}</title>
+        <link rel="stylesheet" href="../public/css/style.css">
     </head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/category.js"></script>
+    <script type="text/javascript" src="../public/js/main.js"></script>
+    <script type="text/javascript" src="../public/js/category.js"></script>
     <body>
         <ul>
             {% for category in categories %}
@@ -16,7 +17,7 @@
         </ul>
 
     <div>
-        <a href="/user/">Личный кабинет</a>
+        <a href="index.php?path=user/login/5">Личный кабинет</a>
     </div>
 
 

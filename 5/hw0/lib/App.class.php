@@ -4,19 +4,15 @@ class App
 {
     public static function init() 
     {
-        date_default_timezone_set('Europe/Moscow');
         /**
          * Подключение к бд через singleton и pdo.
          * Данные для подключения берутся в классе Config
          */
         db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
-
-        if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
-            /**
-             * Проверяет задан ли path в GET параметре.
-             */
-            self::web(isset($_GET['path']) ? $_GET['path'] : '');
-        }
+        /**
+         * Проверяет задан ли path в GET параметре.
+         */
+        self::web(isset($_GET['path']) ? $_GET['path'] : '');
     }
 	
   //http://site.ru/index.php?path=news/edit/5
@@ -25,7 +21,7 @@ class App
     {
         $url = explode("/", $url);
         if (!empty($url[0])) {
-            $_GET['page'] = $url[0];
+            $_GET['page'] = $url[0]; // Часть имени класса контроллера.
             if (!empty($url[1])) {
                 if (is_numeric($url[1])) {
                     $_GET['id'] = $url[1];
@@ -49,10 +45,15 @@ class App
             
             $data = [
                 'content_data' => $controller->$methodName($_GET),
-                'title' => $controller->title,
-                'categories' => Category::getCategories(0)
+//              'categories' => Category::getCategories(0),
+                'title' => $controller->title
             ];
-//            var_dump($data['content_data']);
+            
+            echo '<pre>';
+            var_dump($data['content_data']);
+            var_dump($data['title']);
+            echo '</pre>';
+            
             $view = $controller->view . '/' . $methodName . '.html';
             if (!isset($_GET['asAjax'])) {
                 $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));

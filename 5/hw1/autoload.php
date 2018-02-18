@@ -5,16 +5,30 @@
  */
 spl_autoload_register('autoloadClass'); // Вызов метода загрузки всех классов.
 
-function autoloadClass($class)
+function autoloadClass($className)
 {
-    if (include_once 'm/' . $class . '.class.php') {
-        return true;
-    } elseif (include_once 'c/' . $class . '.class.php') {
-        return true;
-    } else {
-        return false;
+    $dirs = ['c', 'm'];
+    $found = false;
+    foreach ($dirs as $dir) {
+        $fileName = __DIR__ . '/' . $dir . '/' . $className . '.class.php';
+        
+        if (is_file($fileName)) {
+            require_once($fileName);
+            $found = true;
+        }
     }
+    if (!$found) {
+        throw new Exception('Неполучилось загрузить ' . $className);
+    }
+    return true;
 }
-
-
+//{
+//    if (include ("m/" . $className . ".class.php")) {
+//        return true;
+//    } elseif (include ("c/" . $className . ".class.php")) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
 

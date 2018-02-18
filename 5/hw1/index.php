@@ -3,6 +3,7 @@
  * Точка входа.
  * @author Артем Кузнецов
  */
+
 include_once 'autoload.php';
 
 $method = 'method';
@@ -17,4 +18,3 @@ if (isset($_GET['c'])) {
 } else {
     $controller = new PageC();
 }
-

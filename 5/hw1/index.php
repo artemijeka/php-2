@@ -23,12 +23,12 @@ require_once 'autoload.php';
 //echo "</pre>";
 
 //$method = 'method';
-$method = (isset($_GET['m'])) ? $_GET['m'] : 'read'; // Допустим 'read' или 'edit'.
+$method = (isset($_GET['method'])) ? $_GET['method'] : 'read'; // Допустим 'read' или 'edit'.
 
-if (isset($_GET['c'])) {
-    if ($_GET['c'] === 'page') {
+if (isset($_GET['class'])) {
+    if ($_GET['class'] === 'page') {
         $controller = new PageC();
-    } elseif ($_GET['c'] === 'user') {
+    } elseif ($_GET['class'] === 'user') {
         $controller = new UserC();
     }
 } else {

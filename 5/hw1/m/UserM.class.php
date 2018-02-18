@@ -16,11 +16,11 @@ class UserM
      * @param string $password Пароль
      * @return string Возвращает хэшированый и перевернутый пароль+имя
      */
-    public function setPassM($name, $password) {
+    public function setPass($name, $password) {
 	return strrev(md5($name)) . md5($password);
     }
     
-    public function getUserM($id)
+    public function getUser($id)
     {
         $query = "SELECT * FROM users WHERE id=" . $id;
 //        echo "<pre>";
@@ -42,7 +42,7 @@ class UserM
      * @param string $password Мудреный хешированый конкатенированный с именем и реверсивный пароль из за $this->setPass($name, $password)
      * @return boolean
      */
-    public function regUserM($name, $login, $password) 
+    public function regUser($name, $login, $password) 
     {
         $query = "SELECT * FROM users WHERE login = '" . $login . "'";
         $res = PdoM::Instance() -> Select($query);
@@ -53,15 +53,25 @@ class UserM
             return false;
         }
     }
-   
-    public function loginM($login, $password) 
+    
+    /**
+     * Метод класса модели который обрабатывает вход пользователя.
+     * 
+     * @param string $login
+     * @param string $password
+     * @return string
+     */
+    public function login($login, $password) 
     {
-        $connect = $this->connecting();
-        $user = $connect->query("SELECT * FROM users WHERE login = '" . $login . "'")->fetch();
-        if ($user) {
-            if ($user['password'] == $this->pass($user['name'], strip_tags($password))) {
-            $_SESSION['user_id'] = $user['id'];
-            return 'Добро пожаловать в систему, ' . $user['name'] . '!';
+        $query = "SELECT * FROM users WHERE login='" . $login . "'";
+//        var_dump($query);
+        $res = PdoM::Instance() -> Select($query);
+//        var_dump($res);
+//        echo $this -> setPass('admin', 'admin');
+        if ($res) {
+            if ($res['password'] == $this -> setPass($login, $password)) {
+                $_SESSION['user_id'] = $res['id'];
+                return 'Добро пожаловать в систему, ' . $res['name'] . '!';
             } else {
                 return 'Пароль не верный!';
             }
@@ -70,7 +80,7 @@ class UserM
         }  
     }
     
-    public function logoutM()
+    public function logout()
     {
 	if (isset($_SESSION["user_id"])) {
 	    unset($_SESSION["user_id"]);

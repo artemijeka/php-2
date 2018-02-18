@@ -3,17 +3,18 @@
  * Точка входа.
  * @author Артем Кузнецов
  */
-include_once 'model/Autoload.class.php';
+include_once 'autoload.php';
 
-$action = 'action';
-$action .= (isset($_GET['action'])) ? $_GET['action'] : 'index';
+$method = 'method';
+$method .= (isset($_GET['m'])) ? $_GET['m'] : 'index';
 
-if (isset($_GET['controller'])) {
-    if ($_GET['controller'] === 'page') {
-        $controller = new C_Page();
-    } elseif ($_GET['controller'] === 'user') {
-        $controller = new C_User();
+if (isset($_GET['c'])) {
+    if ($_GET['c'] === 'page') {
+        $controller = new PageC();
+    } elseif ($_GET['c'] === 'user') {
+        $controller = new UserC();
     }
 } else {
-    $controller = new C_Page();
+    $controller = new PageC();
 }
+

@@ -1,10 +1,20 @@
 <?php
 /**
- * @title Загружает все классы.
+ * Конфиг.
+ * Загружаем все классы.
+ * Твиг.
  * @author Артем Кузнецов <artem.kuznecov.samara@gmail.com>
  */
-spl_autoload_register('autoloadClass'); // Вызов метода загрузки всех классов.
+require_once 'cofig.php';
 
+spl_autoload_register('autoloadClass'); // Вызов функции загрузки всех классов.
+/**
+ * Функция проходит по папкам c/ и m/ и загружает классы *.class.php
+ * 
+ * @param string $className
+ * @return boolean
+ * @throws Неполучилось загрузить класс.
+ */
 function autoloadClass($className)
 {
     $dirs = ['c', 'm'];
@@ -22,13 +32,14 @@ function autoloadClass($className)
     }
     return true;
 }
-//{
-//    if (include ("m/" . $className . ".class.php")) {
-//        return true;
-//    } elseif (include ("c/" . $className . ".class.php")) {
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
 
+require_once 'lib/vendor/twig/autoloader.php'; // Твиг подгружаем.
+$loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
+$twig = new Twig_Environment($loader); // Регистрируем твиг.
+// Пример работы с твигом: 
+//    $template = $twig -> loadTemplate('index.twig');
+
+//    echo $template -> render( array(
+//      'data' => $data,
+//      'page' => $page
+//    ));

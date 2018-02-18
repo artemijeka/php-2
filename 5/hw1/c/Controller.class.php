@@ -1,13 +1,28 @@
 <?php
 /**
- * 
+ * Абстрактный класс контроллера.
  */
 session_start();
 
 abstract class Controller
 {
     /**
-     * Проверяет используется ли метод POST
+     * Для вызова того или иного метода.
+     * @param type $method string name of method
+     */
+    public function request($method)
+    {
+	$this->before();
+        $this->$method(); //$this -> method_index
+        $this->render();
+    }
+    
+    protected abstract function before();
+    
+    protected abstract function render();
+    
+    /**
+     * @Description: Проверяет используется ли метод POST.
      */
     protected function isPost()
     {

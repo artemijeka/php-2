@@ -6,8 +6,8 @@
 
 include_once 'autoload.php';
 
-$method = 'method';
-$method .= (isset($_GET['m'])) ? $_GET['m'] : 'index';
+//$method = 'method';
+$method = (isset($_GET['m'])) ? $_GET['m'] : 'index'; // Допустим 'read' или 'edit'.
 
 if (isset($_GET['c'])) {
     if ($_GET['c'] === 'page') {
@@ -18,3 +18,5 @@ if (isset($_GET['c'])) {
 } else {
     $controller = new PageC();
 }
+
+$controller -> request($method);

@@ -7,7 +7,7 @@
  * @param string $directory дирректория с файлами
  */
 
-function get_all_filenames_in_the_directory($directory) {
+function getAllFileNames($directory) {
 	return array_slice(scandir($directory), 2);
 }
 

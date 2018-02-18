@@ -2,7 +2,7 @@
 
 class IndexController extends Controller
 {
-    public $view = 'index';
+    public $view = 'index'; // Имя папки в templates представлении.
     public $title;
 
     function __construct()

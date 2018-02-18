@@ -21,6 +21,9 @@ class UserC extends BaseC
         echo $template -> render($vars);        
     }
     
+    /**
+     * @Description: Метод класса создающий экземпляр модели UserM и выводящий в шаблон полученные данные.
+     */
     public function reg() 
     {		
 	$this -> title .= ' | Регистрация';

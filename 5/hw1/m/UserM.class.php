@@ -16,11 +16,11 @@ class UserM
      * @param string $password Пароль
      * @return string Возвращает хэшированый и перевернутый пароль+имя
      */
-    public function setPass ($name, $password) {
+    public function setPassM($name, $password) {
 	return strrev(md5($name)) . md5($password);
     }
     
-    public function getUser($id)
+    public function getUserM($id)
     {
         $query = "SELECT * FROM users WHERE id=" . $id;
 //        echo "<pre>";
@@ -42,7 +42,7 @@ class UserM
      * @param string $password Мудреный хешированый конкатенированный с именем и реверсивный пароль из за $this->setPass($name, $password)
      * @return boolean
      */
-    public function regUser($name, $login, $password) 
+    public function regUserM($name, $login, $password) 
     {
         $query = "SELECT * FROM users WHERE login = '" . $login . "'";
         $res = PdoM::Instance() -> Select($query);
@@ -54,7 +54,7 @@ class UserM
         }
     }
    
-    public function login ($login, $password) 
+    public function loginM($login, $password) 
     {
         $connect = $this->connecting();
         $user = $connect->query("SELECT * FROM users WHERE login = '" . $login . "'")->fetch();
@@ -70,7 +70,7 @@ class UserM
         }  
     }
     
-    public function logout()
+    public function logoutM()
     {
 	if (isset($_SESSION["user_id"])) {
 	    unset($_SESSION["user_id"]);

@@ -8,7 +8,7 @@ abstract class Controller
 {
     /**
      * Для вызова того или иного метода.
-     * @param type $method string name of method
+     * @param string $method метод переданный в $_GET по имени m=
      */
     public function request($method)
     {

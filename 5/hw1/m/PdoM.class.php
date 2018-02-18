@@ -1,5 +1,4 @@
 <?php
-
 // Для теста:
 //$table = 'product';
 //$object = array(
@@ -16,11 +15,12 @@
  * PDO SINGLETON SQL DB QUERY CLASS
  * @author Сергей Герасименко <gerasimenkosv@bk.ru>
  * @author правки от Артем Кузнецов <artem.kuznecov.samara@gmail.com>
- */    
+ */  
+
 class PdoM
 {
     private static $instance;
-    private $db;
+    private $db; // Здесь будет или уже есть соединение с базой данных;
 	
     public static function Instance()
     {
@@ -29,7 +29,10 @@ class PdoM
         }
         return self::$instance;
     }
-	
+    
+    /**
+     * Конструктор производит соединение с бд.
+     */
     private function __construct()
     {
 	setlocale(LC_ALL, 'ru_RU.UTF8');	
@@ -37,7 +40,12 @@ class PdoM
 	$this->db->exec('SET NAMES UTF8');
 	$this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-	
+    
+    /**
+     * 
+     * @param type $query
+     * @return type
+     */
     public function Select($query)
     {
 	$q = $this->db->prepare($query);
@@ -51,7 +59,8 @@ class PdoM
             die($info[2]); // Возвращает текст ошибки.
         }
 	
-        return $q->fetchAll();
+        return $q->fetch();
+//        return $q->fetchAll();
     }
 	    
 

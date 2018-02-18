@@ -20,22 +20,40 @@ class UserM
 	return strrev(md5($name)) . md5($password);
     }
     
-    /**
-     * Коннект с бд.
-     * 
-     * @return PDO
-     */
-    public function connecting () 
-    {
-	return new PDO(DRIVER . ':host='. SERVER . ';dbname=' . DB, USERNAME, PASSWORD);  
-    }
-    
     public function getUser($id)
     {
-        $connect = $this -> connecting();
-        return $connect -> query("SELECT * FROM users WHERE id = '" . $id . "'")->fetch();
+        $query = "SELECT * FROM users WHERE id=" . $id;
+//        echo "<pre>";
+//        var_dump($query);
+//        echo "</pre>";
+        $res = PdoM::Instance() -> Select($query);
+//        echo "<pre>";
+//        var_dump($connect);
+//        echo "</pre>";
+//        $q = $connect -> prepare($query);
+//        $res = $connect -> execute();
+        return $res;
     }
-                
+    
+    /**
+     * Метод регистрации пользователя.
+     * @param string $name Имя пользователя
+     * @param string $login Никнейм пользователя
+     * @param string $password Мудреный хешированый конкатенированный с именем и реверсивный пароль из за $this->setPass($name, $password)
+     * @return boolean
+     */
+    public function regUser($name, $login, $password) 
+    {
+        $query = "SELECT * FROM users WHERE login = '" . $login . "'";
+        $res = PdoM::Instance() -> Select($query);
+        if (!$res) {
+            $query = "INSERT INTO users VALUES (null, '" . $name . "', '" . $login . "', '" . $this->setPass($name, $password) . "'";
+            return true;
+        } else {
+            return false;
+        }
+    }
+   
     public function login ($login, $password) 
     {
         $connect = $this->connecting();
@@ -50,5 +68,17 @@ class UserM
         } else {
             return 'Пользователь с таким логином не зарегистрирован!';
         }  
+    }
+    
+    public function logout()
+    {
+	if (isset($_SESSION["user_id"])) {
+	    unset($_SESSION["user_id"]);
+	    session_destroy();
+	    return true;
+	} else {
+	    return false;
+	}
+                      
     }
 }

@@ -1,11 +1,14 @@
 <?php
 /**
- * Конфиг.
- * Загружаем все классы.
- * Твиг.
+ * Загружаем:
+ * все классы,
+ * конфиг,
+ * твиг.
  * @author Артем Кузнецов <artem.kuznecov.samara@gmail.com>
  */
-require_once 'cofig.php';
+require_once 'config.php';
+
+require_once 'lib/vendor/autoload.php';
 
 spl_autoload_register('autoloadClass'); // Вызов функции загрузки всех классов.
 /**
@@ -32,14 +35,3 @@ function autoloadClass($className)
     }
     return true;
 }
-
-require_once 'lib/vendor/twig/autoloader.php'; // Твиг подгружаем.
-$loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-$twig = new Twig_Environment($loader); // Регистрируем твиг.
-// Пример работы с твигом: 
-//    $template = $twig -> loadTemplate('index.twig');
-
-//    echo $template -> render( array(
-//      'data' => $data,
-//      'page' => $page
-//    ));

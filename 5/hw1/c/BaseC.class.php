@@ -7,7 +7,7 @@ abstract class BaseC extends Controller
     protected $title; // Свойство хранящее название страницы.
     protected $content; // Свойство хранящее контент страницы.
     
-    abstract function __construct(){}
+    public function __construct(){}
     
     /**
      * Метод отдает название и контент страницы.
@@ -16,7 +16,7 @@ abstract class BaseC extends Controller
      * <br/><br/>
      * @var string $content контент страницы
      */
-    protected function before()
+    public function before()
     {
         $this -> title = 'Название сайта';
         $this -> content = '';
@@ -32,12 +32,14 @@ abstract class BaseC extends Controller
             $user_info['name'] = false;
         }
         
+        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
+        $twig = new Twig_Environment($loader); // Регистрируем твиг.
+        $template = $twig -> loadTemplate('main.twig');
         $vars = array(
             'title' => $this->title,
             'content' => $this->content, 
             'user' => $user_info['name']
         );
-        $page = $twig -> loadTemplate('main.twig');
-        echo $page -> render($vars);
+        echo $template -> render($vars);
     }
 }

@@ -34,13 +34,14 @@ class UserC extends BaseC
         
 	if($this->isPost()) {
 	    $new_user = new UserM();
-	    $result = $new_user -> regUser($_POST['name'], $_POST['login'], $_POST['password']);
-	    if ($result) {
-	    	echo $template -> render(array('text' => $result));  
-	    } else {
-	    	echo $template -> render(array('text' => $result)); 
-            }
+	    $res = $new_user -> regUser($_POST['name'], $_POST['login'], $_POST['password']);
+//	    if ($result) {
+//	    	echo $template -> render(array('text' => $result));  
+//	    } else {
+//	    	echo $template -> render(array('text' => $result)); 
+//          }
 	}
+        echo $template -> render(array('text' => $res));
     }
     
     /**

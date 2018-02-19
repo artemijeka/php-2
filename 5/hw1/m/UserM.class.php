@@ -47,10 +47,21 @@ class UserM
         $query = "SELECT * FROM users WHERE login = '" . $login . "'";
         $res = PdoM::Instance() -> Select($query);
         if (!$res) {
-            $query = "INSERT INTO users VALUES (null, '" . $name . "', '" . $login . "', '" . $this->setPass($name, $password) . "'";
-            return true;
+//          $query = "INSERT INTO users VALUES (null, '" . $name . "', '" . $login . "', '" . $this->setPass($name, $password) . "'";
+            $password = $this -> setPass($name, $password);
+            $object = [
+              'name' => $name,
+              'login' => $login,
+              'password' => $password
+            ];
+            $res = PdoM::Instance() -> Insert('users', $object);
+            if (is_numeric($res)) {
+                return "regUser(): Регистрация прошла успешно.";
+            } else {
+                return "regUser(): Регистрация прервалась ошибкой.";
+            }
         } else {
-            return false;
+            return "regUser(): Пользователь уже существует.";
         }
     }
     

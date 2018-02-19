@@ -61,20 +61,25 @@ class PdoM
 	
         return $q->fetch();
 //        return $q->fetchAll();
-    }
-	    
-
+    } 
+    
+    /**
+     * Метод вставки в базу данных.
+     * @param string $table table name
+     * @param assoc array $object Передаваемые значения в базу.
+     * @return type
+     */
     public function Insert($table , $object)
     {
 	$columns = array();
 		
 	foreach ($object as $key => $value) {
 	    $columns[] = $key;
-		$masks[] = "'$value'";
-			
-		if($value === null){
-		    $object[$key] = 'NULL';
-		}
+            $masks[] = "'$value'";
+            
+            if ($value === null) {
+                $object[$key] = 'NULL';
+            }
 	}
 		
 	$columns_s = implode(',', $columns);
@@ -82,18 +87,18 @@ class PdoM
 		
 	$query = "INSERT INTO $table ($columns_s) VALUES ($masks_s)";
 		
-	$q = $this->db->prepare($query);
+	$q = $this -> db -> prepare($query);
 	$q->execute($object);
 		
-	if ($q->errorCode() != PDO::ERR_NONE) {
-            $info = $q->errorInfo();
+	if ($q -> errorCode() != PDO::ERR_NONE) {
+            $info = $q -> errorInfo();
             die($info[2]); // Возвращает текст ошибки.
 	}
 		
-	return $this->db->lastInsertId();		
+	return $this -> db -> lastInsertId();		
     }
 	
-    public function Update($table,$object,$where)
+    public function Update($table, $object, $where)
     {
 	$sets = array();
 		 

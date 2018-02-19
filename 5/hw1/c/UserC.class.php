@@ -40,8 +40,10 @@ class UserC extends BaseC
 //	    } else {
 //	    	echo $template -> render(array('text' => $result)); 
 //          }
-	}
-        echo $template -> render(array('text' => $res));
+            echo $template -> render(array('text' => $res));
+        } else {
+            echo $template -> render(array());
+        }
     }
     
     /**

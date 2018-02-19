@@ -48,7 +48,7 @@ class UserM
         $res = PdoM::Instance() -> Select($query);
         if (!$res) {
 //          $query = "INSERT INTO users VALUES (null, '" . $name . "', '" . $login . "', '" . $this->setPass($name, $password) . "'";
-            $password = $this -> setPass($name, $password);
+            $password = $this -> setPass($login, $password);
             $object = [
               'name' => $name,
               'login' => $login,

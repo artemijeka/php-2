@@ -24,15 +24,15 @@ class PageC extends BaseC
         
 //        $this -> content = $this -> Template('v/edit.twig', array('text' => $text)); // В свойство content кладем шаблон edit.twig с текстом из data/text.txt
        
-        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-        $template = $twig -> loadTemplate('edit.twig');
-        $vars = array(
-//            'title' => $this->title,
-//            'content' => $this->content, 
-            'text' => $text
-        );
-        echo $template -> render($vars);
+//        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
+//        $twig = new Twig_Environment($loader); // Регистрируем твиг.
+//        $template = $twig -> loadTemplate('edit.twig');
+//        $vars = array(
+////            'title' => $this->title,
+////            'content' => $this->content, 
+//            'text' => $text
+//        );
+//        echo $template -> render($vars);
     }
     
     /**

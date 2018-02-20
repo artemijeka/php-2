@@ -8,13 +8,13 @@ abstract class Controller
 {
     /**
      * Для вызова того или иного метода.
-     * @param string $method метод переданный в $_GET по имени m=
+     * @param string $method метод переданный в $_GET по имени 'method'
      */
     public function request($method)
     {
-	    $this->before();
-        $this->$method(); //$this -> read - например
-        $this->render();
+	    $this -> before();
+        $this -> $method(); //$this -> read - например
+        $this -> render();
     }
     
     protected abstract function before();
@@ -37,21 +37,6 @@ abstract class Controller
     protected function isGet() 
     {
         return $_SERVER['REQUEST_METHOD'] == 'GET';
-    }
-    
-    /**
-     * Метод выводит заданный шаблон с заданными переменными в массиве.
-     * @param string $templateName имя шаблона в 'v/'
-     * @param array $vars массив переменных которые выводятся в шаболоне.
-     * @return вывод шаблона на экран.
-     */
-    protected function myTwigTemplate($templateName, $vars = [])
-    {
-        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-        $template = $twig -> loadTemplate($templateName); // Указываем шаблон.
-        
-        echo $template -> render($vars);
     }
     
     /**

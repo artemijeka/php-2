@@ -1,10 +1,21 @@
 <?php
 /**
  * Класс работы со страницей.
+ * 
  * @author Артем Кузнецов <artem.kuznecov.samara@gmail.com>
  */
 class PageC extends BaseC
 {
+    /**
+     * Метод выводит индексную страницу.
+     */
+    public function index()
+    {
+        $title = $this -> title .= ' | Главная';
+        $vars = ['title' => $title];
+        MyTwigM::myTwigTemplate('main.twig', $vars);
+    }
+
     /**
      * Метод считывает файл data/text.txt и задает контент с этим текстом.
      */
@@ -16,7 +27,7 @@ class PageC extends BaseC
         $vars = array(
             'text' => $text
         );
-        $this -> myTwigTemplate('read.twig', $vars);
+        MyTwigM::myTwigTemplate('read.twig', $vars);
     }
     
     /**
@@ -37,6 +48,6 @@ class PageC extends BaseC
         $vars = array(
             'text' => $text
         );
-        $this ->myTwigTemplate('edit.twig', $vars);
+        MyTwigM::myTwigTemplate('edit.twig', $vars);
     }
 }

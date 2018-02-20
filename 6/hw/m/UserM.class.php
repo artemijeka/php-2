@@ -4,7 +4,10 @@
  */
 class UserM
 {
-    protected $user_id, $user_login, $user_name, $user_password;
+    protected $user_id, 
+              $user_login, 
+              $user_name, 
+              $user_password;
     
     public function __construct(){}
     
@@ -44,14 +47,12 @@ class UserM
             ];
             $res = PdoM::Instance() -> Insert('users', $object);
             if (is_numeric($res)) { // Если вставка совершилась то вернется id то есть номер строки в таблице.
-//                 var_dump($res);
                 return "regUser(): Регистрация прошла успешно.";
                 
             } else {
                 return "regUser(): Регистрация прервалась ошибкой.";
             }
         } else { // Если вставка не совершилась то вернется массив c той строкой которая уже зарегистрирована.
-//             var_dump($res);
             return "regUser(): Пользователь уже существует.";
         }
     }
@@ -78,15 +79,19 @@ class UserM
         }  
     }
     
+    /**
+     * Метод выхода из системы.
+     * 
+     * @return boolean
+     */
     public function logout()
     {
-	if (isset($_SESSION["user_id"])) {
-	    unset($_SESSION["user_id"]);
-	    session_destroy();
-	    return true;
-	} else {
-	    return false;
-	}
-                      
+    	if (isset($_SESSION["user_id"])) {
+    	    unset($_SESSION["user_id"]);
+    	    session_destroy();
+    	    return true;
+    	} else {
+    	    return false;
+    	}                      
     }
 }

@@ -15,7 +15,7 @@ class UserC extends BaseC
             'username' => $user_info['name'],
             'userlogin' => $user_info['login']
         );
-        $this -> myTwigTemplate('user_info.twig', $vars);
+        MyTwigM::myTwigTemplate('user_info.twig', $vars);
     }
     
     /**
@@ -31,7 +31,7 @@ class UserC extends BaseC
             $vars = array('text' => $res);
             $this -> myTwigTemplate('user_reg.twig', $vars);
         } else {
-            $this -> myTwigTemplate('user_reg.twig');
+            MyTwigM::myTwigTemplate('user_reg.twig');
             
         }
     }
@@ -42,7 +42,7 @@ class UserC extends BaseC
     public function login() 
     {
     	$this -> title .= ' | Вход';
-    	$this -> myTwigTemplate('user_login.twig');
+    	MyTwigM::myTwigTemplate('user_login.twig');
            
     	if($this -> isPost()) {
     	    $login = new UserM();

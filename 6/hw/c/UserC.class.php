@@ -11,14 +11,11 @@ class UserC extends BaseC
         $user_info = $get_user -> getUser($_SESSION['user_id']);
         $this -> title .= ' | ' . $user_info['name'];
         
-        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-        $template = $twig -> loadTemplate('user_info.twig');
         $vars = array(
             'username' => $user_info['name'],
             'userlogin' => $user_info['login']
         );
-        echo $template -> render($vars);        
+        $this -> myTwigTemplate('user_info.twig', $vars);
     }
     
     /**
@@ -44,19 +41,19 @@ class UserC extends BaseC
      */
     public function login() 
     {
-    	$this->title .= ' | Вход';
-    	$loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-            $twig = new Twig_Environment($loader); // Регистрируем твиг.
-            $template = $twig -> loadTemplate('user_login.twig');
-            echo $template -> render(array());
+    	$this -> title .= ' | Вход';
+    	$this -> myTwigTemplate('user_login.twig');
            
-    	if($this->isPost()) {
+    	if($this -> isPost()) {
     	    $login = new UserM();
     	    $res = $login -> login($_POST['login'], $_POST['password']);
                 echo $res;
     	}
     }
     
+    /**
+     * Метод выхода пользователя.
+     */
     public function logout() {
     	$logout = new UserM();
     	$result = $logout -> logout();

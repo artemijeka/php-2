@@ -1,7 +1,6 @@
 <?php
 /**
- * @Description: Класс для работы с пользователем.
- * @Method: login($login, $password)
+ * Класс для работы с пользователем.
  */
 class UserM
 {
@@ -14,24 +13,15 @@ class UserM
      * 
      * @param string $name Имя
      * @param string $password Пароль
-     * @return string Возвращает хэшированый и перевернутый пароль+имя
+     * @return string Возвращает хэшированый логин+имя и перевернутый
      */
-    public function setPass($name, $password) {
-	return strrev(md5($name)) . md5($password);
+    public function setPass($login, $password) {
+	   return strrev(md5($login) . md5($password));
     }
     
     public function getUser($id)
     {
-        $query = "SELECT * FROM users WHERE id=" . $id;
-//        echo "<pre>";
-//        var_dump($query);
-//        echo "</pre>";
-        $res = PdoM::Instance() -> Select($query);
-//        echo "<pre>";
-//        var_dump($connect);
-//        echo "</pre>";
-//        $q = $connect -> prepare($query);
-//        $res = $connect -> execute();
+        $res = PdoM::Instance() -> Select('users', 'id', $id);
         return $res;
     }
     
@@ -44,10 +34,8 @@ class UserM
      */
     public function regUser($name, $login, $password) 
     {
-        $query = "SELECT * FROM users WHERE login = '" . $login . "'";
-        $res = PdoM::Instance() -> Select($query);
+        $res = PdoM::Instance() -> Select('users', 'login', $login);
         if (!$res) {
-//          $query = "INSERT INTO users VALUES (null, '" . $name . "', '" . $login . "', '" . $this->setPass($name, $password) . "'";
             $password = $this -> setPass($login, $password);
             $object = [
               'name' => $name,
@@ -55,12 +43,15 @@ class UserM
               'password' => $password
             ];
             $res = PdoM::Instance() -> Insert('users', $object);
-            if (is_numeric($res)) {
+            if (is_numeric($res)) { // Если вставка совершилась то вернется id то есть номер строки в таблице.
+//                 var_dump($res);
                 return "regUser(): Регистрация прошла успешно.";
+                
             } else {
                 return "regUser(): Регистрация прервалась ошибкой.";
             }
-        } else {
+        } else { // Если вставка не совершилась то вернется массив c той строкой которая уже зарегистрирована.
+//             var_dump($res);
             return "regUser(): Пользователь уже существует.";
         }
     }
@@ -74,11 +65,7 @@ class UserM
      */
     public function login($login, $password) 
     {
-        $query = "SELECT * FROM users WHERE login='" . $login . "'";
-//        var_dump($query);
-        $res = PdoM::Instance() -> Select($query);
-//        var_dump($res);
-//        echo $this -> setPass('admin', 'admin');
+        $res = PdoM::Instance() -> Select('users', 'login', $login);
         if ($res) {
             if ($res['password'] == $this -> setPass($login, $password)) {
                 $_SESSION['user_id'] = $res['id'];

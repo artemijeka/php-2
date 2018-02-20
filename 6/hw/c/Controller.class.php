@@ -13,7 +13,7 @@ abstract class Controller
     public function request($method)
     {
 	    $this->before();
-        $this->$method(); //$this -> method_index
+        $this->$method(); //$this -> read - например
         $this->render();
     }
     
@@ -41,10 +41,11 @@ abstract class Controller
     
     /**
      * Метод выводит заданный шаблон с заданными переменными в массиве.
-     * @param string $templateName имя шаблона в v/
-     * @param array $vars массив переменных которые выводятся в шаболоне 
+     * @param string $templateName имя шаблона в 'v/'
+     * @param array $vars массив переменных которые выводятся в шаболоне.
+     * @return вывод шаблона на экран.
      */
-    protected function myTwigTemplate($templateName, $vars = array())
+    protected function myTwigTemplate($templateName, $vars = [])
     {
         $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
         $twig = new Twig_Environment($loader); // Регистрируем твиг.
@@ -53,6 +54,12 @@ abstract class Controller
         echo $template -> render($vars);
     }
     
+    /**
+     * Метод отлавливает неверное обращение к методу в url.
+     * @param unknown $name
+     * @param unknown $params
+     * @return сообщение об ошибке
+     */
     public function __call($name, $params)
     {
         die('Неверный url...');

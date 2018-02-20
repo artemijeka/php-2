@@ -1,43 +1,26 @@
 <?php
 /**
- * @Author: Артем Кузнецов <artem.kuznecov.samara@gmail.com>
- * @Method: read()
+ * Класс работы со страницей.
+ * @author Артем Кузнецов <artem.kuznecov.samara@gmail.com>
  */
 class PageC extends BaseC
 {
     /**
-     * @Description: Метод считывает файл data/text.txt и задает контент с этим текстом.
+     * Метод считывает файл data/text.txt и задает контент с этим текстом.
      */
     public function read()
     {
         $this -> title .= ' | Чтение';
         $text = TextM::textGet(); // Считываем файл и переносим на новые строки каждое предложение.
-//        $this -> content = $this -> Template('v/index.twig', array('text' => $text)); // В свойство content кладем шаблон index.twig
         
-        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-        $template = $twig -> loadTemplate('read.twig');
         $vars = array(
             'text' => $text
         );
-        echo $template -> render($vars);
-        
-//        $this -> content = $this -> Template('v/edit.twig', array('text' => $text)); // В свойство content кладем шаблон edit.twig с текстом из data/text.txt
-       
-//        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-//        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-//        $template = $twig -> loadTemplate('edit.twig');
-//        $vars = array(
-////            'title' => $this->title,
-////            'content' => $this->content, 
-//            'text' => $text
-//        );
-//        echo $template -> render($vars);
+        $this -> myTwigTemplate('read.twig', $vars);
     }
     
     /**
-     * @Description: Метод для редактирования текста.
-     * @Public
+     * Метод для редактирования текста.
      */
     public function edit()
     {
@@ -50,16 +33,10 @@ class PageC extends BaseC
         }
         
         $text = TextM::textGet();
-//        $this -> content = $this -> Template('v/edit.twig', array('text' => $text)); // В свойство content кладем шаблон edit.twig с текстом из data/text.txt
-       
-        $loader = new Twig_Loader_Filesystem('v'); // Указываем папку с шаблонами для твиг.
-        $twig = new Twig_Environment($loader); // Регистрируем твиг.
-        $template = $twig -> loadTemplate('edit.twig');
+        
         $vars = array(
-//            'title' => $this->title,
-//            'content' => $this->content, 
             'text' => $text
         );
-        echo $template -> render($vars);
+        $this ->myTwigTemplate('edit.twig', $vars);
     }
 }

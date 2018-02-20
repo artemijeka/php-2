@@ -1,6 +1,6 @@
 <?php
 /**
- * @Description: Класс BaseC наследуется от Controller.
+ * @description Класс BaseC наследуется от Controller.
  */
 abstract class BaseC extends Controller
 {
@@ -39,4 +39,6 @@ abstract class BaseC extends Controller
         );
         $this -> myTwigTemplate('main.twig', $vars);
     }
+    
+    
 }

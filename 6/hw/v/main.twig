@@ -1,0 +1,18 @@
+{%include 'header.twig'%}
+	
+	<div id="menu">
+		<a href="index.php?class=page&method=read">На главную</a> | 
+		<a href="index.php?class=page&method=edit">Редактировать</a> | 
+		{% if user == true %}
+                    <a href="index.php?class=user&method=getUser">Личный кабинет</a> | <a href="index.php?class=user&method=logout">Выйти {{user}}</a>
+                {% endif %}
+		{% if user == false %}
+                    <a href="index.php?class=user&method=login">Войти</a> | <a href="index.php?class=user&method=regUser">Регистрация</a>
+                {% endif %}
+	</div>
+	
+	<div id="content">
+	    {{text}}
+	</div>
+        
+{%include 'footer.twig'%}

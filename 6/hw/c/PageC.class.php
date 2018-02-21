@@ -13,9 +13,22 @@ class PageC extends BaseC
     {
         $title = $this -> title .= ' | Главная';
         $vars = ['title' => $title];
-        MyTwigM::myTwigTemplate('main.twig', $vars);
     }
+    
+    /**
+     * Метод каталога
+     */
+    public function catalog()
+    {
+        $this -> title .= ' | Каталог';
+        $goods = CatalogM::returnGoods(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        $vars = array(
+            'goods' => $goods
+        );
+        MyTwigM::myTwigTemplate('catalog.twig', $vars);
+    }
+    
     /**
      * Метод считывает файл data/text.txt и задает контент с этим текстом.
      */

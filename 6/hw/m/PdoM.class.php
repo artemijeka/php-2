@@ -33,6 +33,7 @@ class PdoM
     }
     
     /**
+     * Метод выборки данных из бд.
      * 
      * @param string $table
      * @param string $where_key
@@ -53,7 +54,7 @@ class PdoM
         
         if ($query -> errorCode() != PDO::ERR_NONE) {
             $info = $query->errorInfo();
-            die($info[2]);
+            die($info[2]); // Вывод ошибки запроса на экран.
         }
         
         if ($fetchAll) {
@@ -64,21 +65,6 @@ class PdoM
             return $query->fetchAll();
         }
     }
-//     public function Select($query)
-//     {
-//     	$q = $this->db->prepare($query);
-//     	$q->execute();
-    		
-//     	if($q->errorCode() != PDO::ERR_NONE){
-//                 $info = $q->errorInfo();
-//         //      echo "<pre>";
-//         //      var_dump($info);
-//         //      echo "</pre>";
-//                 die($info[2]); // Возвращает текст ошибки.
-//         }
-    	
-//         return $q->fetch();
-//     } 
     
     /**
      * Метод вставки в базу данных.

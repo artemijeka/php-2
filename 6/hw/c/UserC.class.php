@@ -13,7 +13,8 @@ class UserC extends BaseC
         
         $vars = array(
             'username' => $user_info['name'],
-            'userlogin' => $user_info['login']
+            'userlogin' => $user_info['login'],
+            'is_admin' => $user_info['is_admin']
         );
         MyTwigM::myTwigTemplate('user_info.twig', $vars);
     }

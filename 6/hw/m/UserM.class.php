@@ -22,6 +22,12 @@ class UserM
 	   return strrev(md5($login) . md5($password));
     }
     
+    /**
+     * Возвращает массив с данными о пользователе.
+     * 
+     * @param number $id
+     * @return array|mixed
+     */
     public function getUser($id)
     {
         $res = PdoM::Instance() -> Select('users', 'id', $id);
@@ -70,7 +76,12 @@ class UserM
         if ($res) {
             if ($res['password'] == $this -> setPass($login, $password)) {
                 $_SESSION['user_id'] = $res['id'];
-                return 'Добро пожаловать в систему, ' . $res['name'] . '!';
+                if ($res['is_admin'] == 1) // Если залогинился администратор.
+                {
+                    return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';
+                } else {
+                    return 'Добро пожаловать в систему, ' . $res['name'] . '!';
+                }
             } else {
                 return 'Пароль не верный!';
             }

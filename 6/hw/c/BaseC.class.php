@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс BaseC наследуется от Controller.
+ * Класс BaseC - базовый контроллер, наследуется от Controller.
  */
 abstract class BaseC extends Controller
 {
@@ -18,7 +18,7 @@ abstract class BaseC extends Controller
      */
     public function before()
     {
-        $this -> title = 'Название сайта';
+        $this -> title = 'Интернет магазин';
         $this -> content = '';
     }
     

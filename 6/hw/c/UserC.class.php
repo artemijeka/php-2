@@ -30,7 +30,7 @@ class UserC extends BaseC
     	    $new_user = new UserM();
     	    $res = $new_user -> regUser($_POST['name'], $_POST['login'], $_POST['password']);
             $vars = array('text' => $res);
-            $this -> myTwigTemplate('user_reg.twig', $vars);
+            MyTwigM::myTwigTemplate('user_reg.twig', $vars);
         } else {
             MyTwigM::myTwigTemplate('user_reg.twig');
             

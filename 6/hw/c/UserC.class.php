@@ -12,11 +12,22 @@ class UserC extends BaseC
         $this -> title .= ' | ' . $user_info['name'];
         
         $vars = array(
-            'username' => $user_info['name'],
-            'userlogin' => $user_info['login'],
+            'user_name' => $user_info['name'],
+            'user_login' => $user_info['login'],
             'is_admin' => $user_info['is_admin']
         );
-        MyTwigM::myTwigTemplate('user_info.twig', $vars);
+        if ($user_info['is_admin'] == 1) {
+            MyTwigM::myTwigTemplate('user_info.twig', $vars);
+            MyTwigM::myTwigTemplate('admin.twig', $vars);
+        } else {
+            MyTwigM::myTwigTemplate('user_info.twig', $vars);
+        }
+        
+    }
+    
+    public function isAdmin()
+    {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
     }
     
     /**
@@ -33,8 +44,8 @@ class UserC extends BaseC
             MyTwigM::myTwigTemplate('user_reg.twig', $vars);
         } else {
             MyTwigM::myTwigTemplate('user_reg.twig');
-            
         }
+        
     }
     
     /**
@@ -48,8 +59,9 @@ class UserC extends BaseC
     	if($this -> isPost()) {
     	    $login = new UserM();
     	    $res = $login -> login($_POST['login'], $_POST['password']);
-                echo $res;
+            echo $res;
     	}
+    	
     }
     
     /**
@@ -58,6 +70,7 @@ class UserC extends BaseC
     public function logout() {
     	$logout = new UserM();
     	$result = $logout -> logout();
+    	
     }	
                 
 }

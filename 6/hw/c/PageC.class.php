@@ -12,7 +12,6 @@ class PageC extends BaseC
     public function index()
     {
         $title = $this -> title .= ' | Главная';
-        $vars = ['title' => $title];
     }
     
     /**
@@ -24,7 +23,7 @@ class PageC extends BaseC
         $goods = CatalogM::returnGoods(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         $vars = array(
-            'goods' => $goods
+            'goods' => $goods // массив товаров
         );
         MyTwigM::myTwigTemplate('catalog.twig', $vars);
     }

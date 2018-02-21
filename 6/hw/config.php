@@ -1,6 +1,7 @@
 <?php
 /**
  * БД
+ * Админ сайта admin admin
  */
 const DB_DRIVER = 'mysql';
 const DB_SERVER = 'localhost';

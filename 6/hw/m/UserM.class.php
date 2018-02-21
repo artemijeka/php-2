@@ -75,7 +75,7 @@ class UserM
         $res = PdoM::Instance() -> Select('users', 'login', $login);
         if ($res) {
             if ($res['password'] == $this -> setPass($login, $password)) {
-                $_SESSION['user_id'] = $res['id'];
+                $_SESSION['user_id'] = $res['id']; // В сессию передается id пользователя.
                 if ($res['is_admin'] == 1) // Если залогинился администратор.
                 {
                     return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';

@@ -16,5 +16,5 @@ if (isset($_GET['class'])) {
 } else {
     $controller = new PageC();
 }
-
+// print_r($_SESSION);
 $controller -> request($method);

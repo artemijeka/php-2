@@ -38,8 +38,8 @@ class UserC extends BaseC
     	$this -> title .= ' | Регистрация';
                     
     	if($this->isPost()) {
-    	    $new_user = new UserM();
-    	    $res = $new_user -> regUser($_POST['name'], $_POST['login'], $_POST['password']);
+    	    $reg_user = new UserM();
+    	    $res = $reg_user -> regUser($_POST['name'], $_POST['login'], $_POST['password']);
             $vars = array('text' => $res);
             MyTwigM::myTwigTemplate('user_reg.twig', $vars);
         } else {
@@ -54,13 +54,14 @@ class UserC extends BaseC
     public function login() 
     {
     	$this -> title .= ' | Вход';
-    	MyTwigM::myTwigTemplate('user_login.twig');
-           
+    	
     	if($this -> isPost()) {
     	    $login = new UserM();
     	    $res = $login -> login($_POST['login'], $_POST['password']);
             echo $res;
     	}
+    	
+    	MyTwigM::myTwigTemplate('user_login.twig');
     	
     }
     

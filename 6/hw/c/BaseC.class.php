@@ -6,6 +6,7 @@ abstract class BaseC extends Controller
 {
     protected $title; // Свойство хранящее название страницы.
     protected $content; // Свойство хранящее контент страницы.
+    protected $is_admin; // Свойсвто задается если пользователь администратор и принимает значение 1.
     
     public function __construct(){}
     
@@ -25,13 +26,17 @@ abstract class BaseC extends Controller
     public function render()
     {
         $get_user = new UserM();
+        if (isset($_SESSION['is_admin'])) {
+            $is_admin = $this -> is_admin = $_SESSION['is_admin'];
+            $vars[] = $is_admin;
+        }
         
         if (isset($_SESSION['user_id'])) {
             $user_info = $get_user -> getUser($_SESSION['user_id']);
         } else {
             $user_info['name'] = false;
         }
-        
+                
         $vars = array( // Задаем массив переменных которые выводятся в шаболоне.
             'title' => $this -> title,
             'content' => $this -> content, 

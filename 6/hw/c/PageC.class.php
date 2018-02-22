@@ -11,7 +11,8 @@ class PageC extends BaseC
      */
     public function index()
     {
-        $title = $this -> title .= ' | Главная';
+        $this -> title .= ' | Главная';
+        $this -> is_admin = $_SESSION['is_admin'];
     }
     
     /**

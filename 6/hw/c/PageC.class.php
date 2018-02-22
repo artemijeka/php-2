@@ -12,7 +12,7 @@ class PageC extends BaseC
     public function index()
     {
         $this -> title .= ' | Главная';
-        $this -> is_admin = $_SESSION['is_admin'];
+        
     }
     
     /**

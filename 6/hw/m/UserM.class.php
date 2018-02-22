@@ -79,9 +79,11 @@ class UserM
                 if ($res['is_admin'] == 1) // Если залогинился администратор.
                 {
                     $_SESSION['is_admin'] = $res['is_admin']; // В сессию передается то что он админ.
-                    return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';
+//                     return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';
+                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 } else {
-                    return 'Добро пожаловать в систему, ' . $res['name'] . '!';
+//                     return 'Добро пожаловать в систему, ' . $res['name'] . '!';
+                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 }
             } else {
                 return 'Пароль не верный!';

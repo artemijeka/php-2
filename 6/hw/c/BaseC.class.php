@@ -21,15 +21,14 @@ abstract class BaseC extends Controller
     {
         $this -> title = 'Интернет магазин';
         $this -> content = '';
+        if (isset($_SESSION['is_admin'])) {
+            $this -> is_admin = $_SESSION['is_admin'];
+        }
     }
     
     public function render()
     {
         $get_user = new UserM();
-        if (isset($_SESSION['is_admin'])) {
-            $is_admin = $this -> is_admin = $_SESSION['is_admin'];
-            $vars[] = $is_admin;
-        }
         
         if (isset($_SESSION['user_id'])) {
             $user_info = $get_user -> getUser($_SESSION['user_id']);
@@ -40,7 +39,8 @@ abstract class BaseC extends Controller
         $vars = array( // Задаем массив переменных которые выводятся в шаболоне.
             'title' => $this -> title,
             'content' => $this -> content, 
-            'user' => $user_info['name']
+            'user_name' => $user_info['name'],
+            'is_admin' => $this -> is_admin
         );
         MyTwigM::myTwigTemplate('main.twig', $vars);
     }

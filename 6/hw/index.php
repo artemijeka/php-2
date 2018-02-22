@@ -16,5 +16,5 @@ if (isset($_GET['class'])) {
 } else {
     $controller = new PageC();
 }
-// print_r($_SESSION);
+print_r($_SERVER['HTTP_REFERER']);
 $controller -> request($method);

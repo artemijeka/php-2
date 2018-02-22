@@ -12,9 +12,11 @@ if (isset($_GET['class'])) {
         $controller = new PageC();
     } elseif ($_GET['class'] === 'user') {
         $controller = new UserC();
+    } elseif ($_GET['class'] === 'admin') {
+        $controller = new AdminC();
     }
 } else {
     $controller = new PageC();
 }
-print_r($_SERVER['HTTP_REFERER']);
+// print_r($_SERVER['HTTP_REFERER']);
 $controller -> request($method);

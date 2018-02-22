@@ -55,7 +55,7 @@ class UserC extends BaseC
     	}
     	
     	
-    	if($this -> isPost()) {
+    	if ($this -> isPost()) {
     	    $login = new UserM();
     	    $res = $login -> login($_POST['login'], $_POST['password']);
             echo $res;

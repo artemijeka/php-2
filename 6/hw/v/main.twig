@@ -9,7 +9,7 @@
 		{% if user_name == true %}
         	<a href="index.php?class=user&method=getUser">Личный кабинет</a> | 
         	{% if is_admin == 1 %}
-        		<a href="index.php?class=admin&method=getAdmin">Админка</a> |
+        		<a href="index.php?class=admin&method=loadItem">Админка</a> |
         	{% endif %}
         	<a href="index.php?class=user&method=logout">Выйти {{user_name}}</a>
 		{% else %}

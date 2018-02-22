@@ -36,6 +36,7 @@ class UserM
     
     /**
      * Метод регистрации пользователя.
+     * 
      * @param string $name Имя пользователя
      * @param string $login Никнейм пользователя
      * @param string $password Мудреный хешированый конкатенированный с именем и реверсивный пароль из за $this->setPass($name, $password)

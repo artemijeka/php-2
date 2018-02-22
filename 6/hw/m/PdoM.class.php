@@ -72,7 +72,7 @@ class PdoM
      * @param assoc array $object Передаваемые значения в базу.
      * @return type
      */
-    public function Insert($table , $object)
+    public function Insert($table, $object)
     {
 	$columns = array();
 		

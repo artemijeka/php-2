@@ -12,10 +12,15 @@ class AdminM
      * @param string $item_name
      * @param string $item_description
      */
-    public function loadItem($item_image, $item_dirrectory, $item_name, $item_description)
+    public function loadItem($item_image, $item_directory, $item_name, $item_description)
     {
-        $this -> uploadImageToServer($item_image, $item_dirrectory); // Загрузка изображения на сервер.
-        
+        $this -> uploadImageToServer($item_image, $item_directory); // Загрузка изображения на сервер.
+        $object = [
+            'directory' => $item_directory,
+            'name' => $item_name,
+            'description' => $item_description
+        ];
+        PdoM::Insert('GOODS', $object); // Передача в базу данных имени, описания и путь к изображению товара.
     }
     
     /**

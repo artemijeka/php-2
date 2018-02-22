@@ -16,12 +16,7 @@ class UserC extends BaseC
             'user_login' => $user_info['login'],
             'is_admin' => $user_info['is_admin']
         );
-        if ($user_info['is_admin'] == 1) {
             MyTwigM::myTwigTemplate('user_info.twig', $vars);
-            MyTwigM::myTwigTemplate('admin.twig', $vars);
-        } else {
-            MyTwigM::myTwigTemplate('user_info.twig', $vars);
-        }
         
     }
     

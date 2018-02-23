@@ -18,4 +18,4 @@ const USERS = 'users'; // Таблица товаров.
 /**
  * Другие константы:
  */
-const IMAGE_DIRRECTORY = 'assets/img';
+const IMAGE_DIRECTORY = './assets/img/';

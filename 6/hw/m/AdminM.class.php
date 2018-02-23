@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Модель отвечающая за инструментарий админа.
+ */
 class AdminM
 {
     public function __construct(){}
@@ -20,7 +22,8 @@ class AdminM
             'name' => $item_name,
             'description' => $item_description
         ];
-        PdoM::Insert('GOODS', $object); // Передача в базу данных имени, описания и путь к изображению товара.
+        var_dump($object);
+        PdoM::Insert(GOODS, $object); // Передача в базу данных имени, описания и путь к изображению товара.
     }
     
     /**
@@ -32,16 +35,22 @@ class AdminM
      */
     public function uploadImageToServer($uploaded_image, $path_to_dir) 
     {
-        if ($uploaded_image['size'] < 5000000) { // Ограничение в 4.76 Мб.
-            if (move_uploaded_file($uploaded_image['tmp_name'], $path_to_dir)) { 
-                // echo "Файл корректен и был успешно загружен.\n";
-                return true;
-            } else if ($uploaded_image['size'] > 5000000) { // Ограничение в 4.76 Мб.
-                // echo "Файл небыл загружен, потому что больше 5Мб!\n";
-                return false;
+        // Проверяем был ли загружен файл.
+        if(is_uploaded_file($uploaded_image['tmp_name'])) {
+            // Ограничение в 4.76 Мб.
+            if ($uploaded_image['size'] < 5000000) { 
+                // Если файл загружен успешно, перемещаем его
+                // из временной директории в конечную.
+                if (move_uploaded_file($uploaded_image['tmp_name'], $path_to_dir)) { 
+                    return "Файл корректен и был успешно загружен.\n";
+                } else if ($uploaded_image['size'] > 5000000) { // Ограничение в 4.76 Мб.
+                    return "Файл небыл загружен, потому что больше 5Мб или уже существует.\n";
+                }
             }
         }
+        
     }
+       
     
     
 }

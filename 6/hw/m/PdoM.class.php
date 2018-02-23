@@ -74,31 +74,31 @@ class PdoM
      */
     public function Insert($table, $object)
     {
-	$columns = array();
-		
-	foreach ($object as $key => $value) {
-	    $columns[] = $key;
-            $masks[] = "'$value'";
-            
-            if ($value === null) {
-                $object[$key] = 'NULL';
-            }
-	}
-		
-	$columns_s = implode(',', $columns);
-	$masks_s = implode(',', $masks);
-		
-	$query = "INSERT INTO $table ($columns_s) VALUES ($masks_s)";
-		
-	$q = $this -> db -> prepare($query);
-	$q->execute($object);
-		
-	if ($q -> errorCode() != PDO::ERR_NONE) {
-            $info = $q -> errorInfo();
+    	$columns = array();
+    		
+    	foreach ($object as $key => $value) {
+    	    $columns[] = $key;
+                $masks[] = "'$value'";
+                
+                if ($value === null) {
+                    $object[$key] = 'NULL';
+                }
+    	}
+    		
+    	$columns_s = implode(',', $columns);
+    	$masks_s = implode(',', $masks);
+    		
+    	$query = "INSERT INTO $table ($columns_s) VALUES ($masks_s)";
+    		
+    	$query = $this -> db -> prepare($query);
+    	$query->execute($object);
+    		
+    	if ($query -> errorCode() != PDO::ERR_NONE) {
+    	    $info = $query -> errorInfo();
             die($info[2]); // Возвращает текст ошибки.
-	}
-		
-	return $this -> db -> lastInsertId();		
+    	}
+    		
+    	return $this -> db -> lastInsertId();		
     }
 	
     public function Update($table, $object, $where)
@@ -119,7 +119,7 @@ class PdoM
         //echo "<pre>"; // Проверочка.
         //var_dump($query); // Проверочка.
         // echo "</pre>"; // Проверочка.
-	$q = $this->db->prepare($query);
+	$q = $this -> db -> prepare($query);
 	$q->execute($object);
 
 	if($q->errorCode() != PDO::ERR_NONE){

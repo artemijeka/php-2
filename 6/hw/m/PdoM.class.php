@@ -101,46 +101,54 @@ class PdoM
     	return $this -> db -> lastInsertId();		
     }
 	
+    /**
+     * Метод PDO SINGLETON для обновления значений в таблице.
+     * 
+     * @param string $table
+     * @param array $object
+     * @param string $where
+     * @return number кол-во изменненных строк таблицы
+     */
     public function Update($table, $object, $where)
     {
-	$sets = array();
-		 
-	foreach($object as $key => $value){
-			
-	    $sets[] = "$key='$value'";
-                                                
-	    if($value === NULL){
-		    $object[$key]='NULL';
-	    }
-	}
-		 
-	$sets_s = implode(',',$sets);
-	$query = "UPDATE $table SET $sets_s WHERE $where";
-        //echo "<pre>"; // Проверочка.
-        //var_dump($query); // Проверочка.
-        // echo "</pre>"; // Проверочка.
-	$q = $this -> db -> prepare($query);
-	$q->execute($object);
-
-	if($q->errorCode() != PDO::ERR_NONE){
-	    $info = $q->errorInfo();
-	    die($info[2]); // Возвращает текст ошибки. 
-	}
-		
-	return $q->rowCount();
+    	$sets = array();
+    		 
+    	foreach($object as $key => $value) {
+    			
+    	    $sets[] = "$key='$value'";
+                                                    
+    	    if($value === NULL){
+    		    $object[$key]='NULL';
+    	    }
+    	}
+    		 
+    	$sets_s = implode(',',$sets);
+    	$query = "UPDATE $table SET $sets_s WHERE $where";
+            //echo "<pre>"; // Проверочка.
+            //var_dump($query); // Проверочка.
+            // echo "</pre>"; // Проверочка.
+    	$q = $this -> db -> prepare($query);
+    	$q -> execute($object);
+     
+    	if($q->errorCode() != PDO::ERR_NONE) {
+    	    $info = $q->errorInfo();
+    	    die($info[2]); // Возвращает текст ошибки. 
+    	}
+    		
+    	return $q->rowCount();
     }
 	
     public function Delete($table, $where)
     {
-	$query = "DELETE FROM $table WHERE $where";
-	$q = $this->db->prepare($query);
-	$q->execute();
-		
-	if($q->errorCode() != PDO::ERR_NONE){
-            $info = $q->errorInfo();
-            die($info[2]); // Возвращает текст ошибки.
-	}
-		
-	return $q->rowCount();
+    	$query = "DELETE FROM $table WHERE $where";
+    	$q = $this -> db -> prepare($query);
+    	$q -> execute();
+    		
+    	if($q->errorCode() != PDO::ERR_NONE){
+                $info = $q -> errorInfo();
+                die($info[2]); // Возвращает текст ошибки.
+    	}
+    		
+    	return $q->rowCount();
     }
 }

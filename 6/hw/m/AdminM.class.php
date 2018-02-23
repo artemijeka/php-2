@@ -7,23 +7,32 @@ class AdminM
     public function __construct(){}
     
     /**
-     * Метод загрузки нового товара на сервер и бд.
+     * Метод загрузки новой позиции на сервер и бд.
      * 
      * @param unknown $item_image
      * @param string $item_dirrectory
      * @param string $item_name
      * @param string $item_description
      */
-    public function loadItem($item_image, $item_directory, $item_name, $item_description)
+    public function loadItem($item_image, $item_directory, $item_name, $item_description, $item_price)
     {
-        $this -> uploadImageToServer($item_image, $item_directory); // Загрузка изображения на сервер.
-        $object = [
-            'directory' => $item_directory,
-            'name' => $item_name,
-            'description' => $item_description
-        ];
-        var_dump($object);
-        PdoM::Insert(GOODS, $object); // Передача в базу данных имени, описания и путь к изображению товара.
+        $res = PdoM::Instance() -> Select(GOODS, 'name', $item_name, false);
+// echo "<pre>";        
+// var_dump($res['name']);
+// echo "</pre>";
+        if ($res['name'] !== $item_name) {
+            $object = [
+                'directory' => $item_directory,
+                'name' => $item_name,
+                'description' => $item_description,
+                'price' => $item_price
+            ];
+// var_dump($object);
+            PdoM::Instance() -> Insert(GOODS, $object); // Передача в базу данных имени, описания и путь к изображению товара.
+            return $this -> uploadImageToServer($item_image, $item_directory); // Загрузка изображения на сервер.  
+        } else {
+            return "Такое имя позиции уже есть в бд.";
+        }
     }
     
     /**
@@ -36,7 +45,7 @@ class AdminM
     public function uploadImageToServer($uploaded_image, $path_to_dir) 
     {
         // Проверяем был ли загружен файл.
-        if(is_uploaded_file($uploaded_image['tmp_name'])) {
+        if(!is_uploaded_file($uploaded_image['name'])) {
             // Ограничение в 4.76 Мб.
             if ($uploaded_image['size'] < 5000000) { 
                 // Если файл загружен успешно, перемещаем его
@@ -48,7 +57,6 @@ class AdminM
                 }
             }
         }
-        
     }
        
     

@@ -1,13 +1,13 @@
 <form method="post" enctype="multipart/form-data">
-	<h2>Загрузить товар</h2>
+	<h2>Загрузить позицию</h2>
 	<h3>{{return_msg}}</h3>
-	<input type="text" name="item_name" placeholder="Имя товара" />
+	<input type="text" name="item_name" placeholder="Имя позиции" />
 	<br/><br/>
-	<textarea name="item_description" cols="64" rows="16" placeholder="Описание товара"></textarea>
+	<textarea name="item_description" cols="64" rows="16" placeholder="Описание позиции"></textarea>
 	<br/><br/>
 	<input type="file" name="item_image" value="Выбрать фото" />
     <br/><br/>
-    <input type="number" name="item_price" placeholder="Стоимость" /> ₽
+    <input type="text" name="item_price" placeholder="Стоимость" /> ₽
     <br/><br/>
     <input type="submit" value="Сохранить" />
 </form>

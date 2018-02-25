@@ -12,21 +12,11 @@ class PageC extends BaseC
     public function index()
     {
         $this -> title .= ' | Главная';
-        
-    }
-    
-    /**
-     * Метод каталога
-     */
-    public function catalog()
-    {
-        $this -> title .= ' | Каталог';
-        $goods = CatalogM::returnGoods(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        $vars = array(
-            'goods' => $goods // массив товаров
-        );
-        MyTwigM::myTwigTemplate('catalog.twig', $vars);
+        $welcome = "Приветствую на моей курсовой работе по php.";
+        $vars = [
+            'welcome' => $welcome
+        ];
+        MyTwigM::myTwigTemplate('main.twig', $vars);        
     }
     
     /**

@@ -17,12 +17,6 @@ class UserC extends BaseC
             'is_admin' => $user_info['is_admin']
         );
             MyTwigM::myTwigTemplate('user_info.twig', $vars);
-        
-    }
-    
-    public function isAdmin()
-    {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
     }
     
     /**
@@ -40,7 +34,6 @@ class UserC extends BaseC
         } else {
             MyTwigM::myTwigTemplate('user_reg.twig');
         }
-        
     }
     
     /**
@@ -62,7 +55,6 @@ class UserC extends BaseC
     	}
         
     	MyTwigM::myTwigTemplate('user_login.twig');
-    	
     }
     
     /**
@@ -71,7 +63,8 @@ class UserC extends BaseC
     public function logout() {
     	$logout = new UserM();
     	$result = $logout -> logout();
-    	
-    }	
+    }
+    
+    
                 
 }

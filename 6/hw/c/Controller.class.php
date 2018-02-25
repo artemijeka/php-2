@@ -8,18 +8,22 @@ abstract class Controller
 {
     /**
      * Для вызова того или иного метода.
+     * 
      * @param string $method метод переданный в $_GET по имени 'method'
      */
     public function request($method)
     {
 	    $this -> before();
-        $this -> $method(); //$this -> read - например
-        $this -> render();
+	    $this -> header();
+        $this -> $method(); //$this read - например
+        $this -> footer();
     }
     
     protected abstract function before();
     
-    protected abstract function render();
+    protected abstract function header();
+    
+    protected abstract function footer();
     
     /**
      * Проверяет используется ли метод POST.

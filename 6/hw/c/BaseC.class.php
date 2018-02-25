@@ -12,9 +12,8 @@ abstract class BaseC extends Controller
     
     /**
      * Метод отдает название и контент страницы.
-     * <br/>
+     * 
      * @var string $title название страницы
-     * <br/><br/>
      * @var string $content контент страницы
      */
     public function before()
@@ -26,7 +25,7 @@ abstract class BaseC extends Controller
         }
     }
     
-    public function render()
+    public function header()
     {
         $get_user = new UserM();
         
@@ -42,8 +41,15 @@ abstract class BaseC extends Controller
             'user_name' => $user_info['name'],
             'is_admin' => $this -> is_admin
         );
-        MyTwigM::myTwigTemplate('main.twig', $vars);
+        MyTwigM::myTwigTemplate('header.twig', $vars);
     }
     
+    public function footer()
+    {
+        $vars = array(
+            'this_date' => date('o')
+        );
+        MyTwigM::myTwigTemplate('footer.twig', $vars);
+    }
     
 }

@@ -16,6 +16,8 @@ if (isset($_GET['class'])) {
         $controller = new AdminC();
     } elseif ($_GET['class'] === 'catalog') {
         $controller = new CatalogC();
+    } elseif ($_GET['class'] === 'basket') {
+        $controller = new BasketC();
     }
 } else {
     $controller = new PageC();

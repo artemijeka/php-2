@@ -14,6 +14,8 @@ if (isset($_GET['class'])) {
         $controller = new UserC();
     } elseif ($_GET['class'] === 'admin') {
         $controller = new AdminC();
+    } elseif ($_GET['class'] === 'catalog') {
+        $controller = new CatalogC();
     }
 } else {
     $controller = new PageC();

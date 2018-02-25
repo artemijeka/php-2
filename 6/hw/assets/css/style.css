@@ -2,4 +2,11 @@
     Created on : Feb 18, 2018, 3:39:39 PM
     Author     : Артем Кузнецов
 */
-
+.item-card {
+	padding: 8px;
+	border: 1px solid grey;
+	border-radius: 8px;
+}
+.item-card__image {
+	box-sizing: border-box;
+}

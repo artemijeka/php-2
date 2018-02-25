@@ -6,10 +6,18 @@
  */
 class CatalogM
 {
-    
-    public function showGoods()
+    /**
+     * 
+     */
+    public function getCatalog()
     {
-        
+        $res = PdoM::Instance() -> Select(GOODS);
+// echo "<pre>";        
+// var_dump($res);
+// echo "</pre>";
+        return $res;
     }
+  
+    
     
 }

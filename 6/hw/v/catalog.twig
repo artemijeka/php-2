@@ -7,8 +7,8 @@
 	<h4><div class='item-card__price'>Цена: {{ array_items.price }}</div></h4>
 	<form method='post'>
 		<strong>Выбрать вариант: </strong>
-		<label for="{{array_items.id}}[]">{{ item_option_a }}<input type="checkbox" name='{{array_items.id}}[]' value='{{ item_option_a }}'/></label>
-		<label for="{{array_items.id}}[]">{{ item_option_b }}<input type="checkbox" name='{{array_items.id}}[]' value='{{ item_option_b }}'/></label>
+		<label for="{{array_items.name}}[]">{{ item_option_a }}<input type="checkbox" name='{{array_items.name}}[]' value='{{ item_option_a }}'/></label>
+		<label for="{{array_items.name}}[]">{{ item_option_b }}<input type="checkbox" name='{{array_items.name}}[]' value='{{ item_option_b }}'/></label>
 		<input type="submit" value='{{ buy }}' />
 	</form>
 </figure>

@@ -22,15 +22,16 @@ echo "</pre>";
             BasketM::addToBasket($_POST); // Добавляем в корзину товары и их опции.
         }
 
-        foreach ($items_arrays as $array) {
+        foreach ($items_arrays as $option_array) {
             $vars = array( // В переменных должны выводиться вся информация о товарах в виде массива.
-                'array_items' => $array,
+                'array_items' => $option_array,
                 'item_option_a' => ITEM_OPTION_A,
                 'item_option_b' => ITEM_OPTION_B,
                 'buy' => BUY
             );
             MyTwigM::myTwigTemplate('catalog.twig', $vars);
         }
+        
 echo "<pre>Сессия:";
 print_r($_SESSION);
 echo "</pre>";
@@ -38,6 +39,7 @@ echo "<pre>Пост:";
 print_r($_POST);
 echo "</pre>";
 // print_r($_SERVER);
+// unset($_SESSION['basket']['3']);
     }
     
     

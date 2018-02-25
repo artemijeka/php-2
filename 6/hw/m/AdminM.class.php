@@ -14,7 +14,7 @@ class AdminM
      * @param string $item_name
      * @param string $item_description
      */
-    public function loadItem($item_image, $item_image_dir, $item_min_image_dir, $item_name, $item_description, $item_price)
+    public function loadItem($item_image, $item_image_dir, $item_min_image_dir, $item_name, $item_category, $item_description, $item_price)
     {
         $res = PdoM::Instance() -> Select(GOODS, 'name', $item_name, false);
 // echo "<pre>";        
@@ -26,13 +26,14 @@ class AdminM
                 'image_dir' => $item_image_dir,
                 'min_image_dir' => $item_min_image_dir,
                 'name' => $item_name,
+                'category' => $item_category,
                 'description' => $item_description,
                 'price' => $item_price
             ];
 // var_dump($object);
             PdoM::Instance() -> Insert(GOODS, $object); // Передача в базу данных имени, описания и путь к изображению товара.
             // Загрузка оригинала изображения на сервер:
-            if ($image_is_upload = $this -> uploadImageToServer($item_image, $item_image_dir)) {
+            if ($this -> uploadImageToServer($item_image, $item_image_dir)) {
                 // Создание миниатюры изображения:
                 if ($this -> imageZoomOut($item_image_dir, 400, $item_min_image_dir)) {
                     return "Изображение загружено и создана уменьшенная копия.";

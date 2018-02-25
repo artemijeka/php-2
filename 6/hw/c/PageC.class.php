@@ -11,6 +11,8 @@ class PageC extends BaseC
      */
     public function index()
     {
+        
+        
         $this -> title .= ' | Главная';
         $welcome = "Приветствую на моей курсовой работе по php.";
         $vars = [

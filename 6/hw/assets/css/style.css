@@ -4,9 +4,23 @@
 */
 .item-card {
 	padding: 8px;
-	border: 1px solid grey;
-	border-radius: 8px;
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    width: 400px;
+    display: inline-block;
 }
 .item-card__image {
 	box-sizing: border-box;
+}
+.item-card__title,
+.item-card__description,
+.item-card__category {
+	text-align: center;
+}
+.item-card__description {
+	padding: 15px;
+}
+.item-card__price {
+    text-align: right;
 }

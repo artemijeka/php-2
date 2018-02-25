@@ -20,7 +20,8 @@ class AdminM
 // echo "<pre>";        
 // var_dump($res['name']);
 // echo "</pre>";
-        if ($res['name'] !== $item_name) { // Если в бд отсутствует такое имя позиции, то
+        // Если в бд отсутствует такое имя позиции:
+        if ($res['name'] !== $item_name) {
             $object = [
                 'image_dir' => $item_image_dir,
                 'min_image_dir' => $item_min_image_dir,
@@ -31,11 +32,17 @@ class AdminM
 // var_dump($object);
             PdoM::Instance() -> Insert(GOODS, $object); // Передача в базу данных имени, описания и путь к изображению товара.
             // Загрузка оригинала изображения на сервер:
-            $image_is_upload = $this -> uploadImageToServer($item_image, $item_image_dir);
-            if ($image_is_upload) {
+            if ($image_is_upload = $this -> uploadImageToServer($item_image, $item_image_dir)) {
                 // Создание миниатюры изображения:
-                $this -> imageZoomOut($item_image_dir, 400, $item_min_image_dir);
-            }           
+                if ($this -> imageZoomOut($item_image_dir, 400, $item_min_image_dir)) {
+                    return "Изображение загружено и создана уменьшенная копия.";
+                } else {
+// var_dump($this -> imageZoomOut($item_image_dir, 400, $item_min_image_dir));
+                    return 'Изображение было загружено, но небыла создана уменьшенная копия.';   
+                }               
+            } else {
+                return 'Изображение небыло загружено.';
+            }
         } else {
             return "Такое имя позиции уже есть в бд.";
         }
@@ -86,7 +93,9 @@ class AdminM
             unlink($target_image_dir);
         }
         // $image_save_func($tmp, "$targetFile.$new_image_ext");
-        $image_save_func($tmp, "$target_image_dir");
+        if ($image_save_func($tmp, "$target_image_dir")) {
+            return true;
+        }
     }
     
     /**

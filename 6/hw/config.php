@@ -13,8 +13,14 @@ const DB_PASSWORD = '';
 /**
  * Таблицы:
  */
-const GOODS = 'goods'; // Таблица товаров.
-const USERS = 'users'; // Таблица пользователей.
+const GOODS = 'ITEMS'; // Таблица товаров.
+    const ITEM_NAME = 'name';
+const USERS = 'USERS'; // Таблица пользователей.
+    const USER_ID = 'user_id'; // Столец с id пользователя.
+    const USER_LOGIN = 'login';
+    const USER_PASSWORD = 'password';
+    const USER_IS_ADMIN = 'is_admin';
+const BASKET = 'BASKETS';
 
 /**
  * Константы изображений:
@@ -25,8 +31,10 @@ const MIN_IMAGE_DIRRECTORY = './assets/img/min/';
 /**
  * Константы опций позиции:
  */
-const ITEM_OPTION_A = "Кобель";
-const ITEM_OPTION_B = "Сука";
+const ITEM_OPTION_A = 0;
+const ITEM_OPTION_B = 1;
+const NAME_OPTION_A = "Кобель";
+const NAME_OPTION_B = "Сука";
 
 /**
  * Константы кнопок:

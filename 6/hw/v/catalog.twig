@@ -1,14 +1,14 @@
 <figure class="item-card">
 	<h3 class="item-card__title">{{ array_items.name }}</h3>
 	<br/>
-	<img src="{{ array_items.min_image_dir }}" alt="{{ array_items.name }}" class="item-card__image"/>
+	<img src="{{ array_items.image_min_dir }}" alt="{{ array_items.name }}" class="item-card__image"/>
 	<p class='item-card__category'><strong>Порода:</strong> {{ array_items.category }}</p>
 	<figcaption class="item-card__description"><strong>Титулы:</strong> {{ array_items.description }}</figcaption>
 	<h4><div class='item-card__price'>Цена: {{ array_items.price }}</div></h4>
 	<form method='post'>
 		<strong>Выбрать вариант: </strong>
-		<label for="{{array_items.name}}[]">{{ item_option_a }}<input type="checkbox" name='{{array_items.name}}[]' value='{{ item_option_a }}'/></label>
-		<label for="{{array_items.name}}[]">{{ item_option_b }}<input type="checkbox" name='{{array_items.name}}[]' value='{{ item_option_b }}'/></label>
+		<label for="{{array_items.item_id}}[]">{{ name_option_a }}<input type="checkbox" name='{{array_items.item_id}}[]' value='{{ item_option_a }}'/></label>
+		<label for="{{array_items.item_id}}[]">{{ name_option_b }}<input type="checkbox" name='{{array_items.item_id}}[]' value='{{ item_option_b }}'/></label>
 		<input type="submit" value='{{ buy }}' />
 	</form>
 </figure>

@@ -16,12 +16,12 @@ class AdminM
      */
     public function loadItem($item_image, $item_image_dir, $item_min_image_dir, $item_name, $item_category, $item_description, $item_price)
     {
-        $res = PdoM::Instance() -> Select(GOODS, 'name', $item_name, false);
+        $res = PdoM::Instance() -> Select(GOODS, ITEM_NAME, $item_name, false);
 // echo "<pre>";        
 // var_dump($res['name']);
 // echo "</pre>";
         // Если в бд отсутствует такое имя позиции:
-        if ($res['name'] !== $item_name) {
+        if ($res[ITEM_NAME] !== $item_name) {
             $object = [
                 'image_dir' => $item_image_dir,
                 'min_image_dir' => $item_min_image_dir,

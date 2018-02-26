@@ -30,7 +30,7 @@ class UserM
      */
     public function getUser($id)
     {
-        $res = PdoM::Instance() -> Select('users', 'id', $id);
+        $res = PdoM::Instance() -> Select(USERS, USER_ID, $id);
         return $res;
     }
     
@@ -44,7 +44,7 @@ class UserM
      */
     public function regUser($name, $login, $password) 
     {
-        $res = PdoM::Instance() -> Select('users', 'login', $login);
+        $res = PdoM::Instance() -> Select(USERS, USER_LOGIN, $login);
         if (!$res) {
             $password = $this -> setPass($login, $password);
             $object = [
@@ -52,7 +52,7 @@ class UserM
               'login' => $login,
               'password' => $password
             ];
-            $res = PdoM::Instance() -> Insert('users', $object);
+            $res = PdoM::Instance() -> Insert(USERS, $object);
             if (is_numeric($res)) { // Если вставка совершилась то вернется id то есть номер строки в таблице.
                 return "regUser(): Регистрация прошла успешно.";
                 
@@ -73,13 +73,13 @@ class UserM
      */
     public function login($login, $password) 
     {
-        $res = PdoM::Instance() -> Select('users', 'login', $login);
+        $res = PdoM::Instance() -> Select(USERS, USER_LOGIN, $login);
         if ($res) {
-            if ($res['password'] == $this -> setPass($login, $password)) {
-                $_SESSION['user_id'] = $res['id']; // В сессию передается id пользователя.
-                if ($res['is_admin'] == 1) // Если залогинился администратор.
+            if ($res[USER_PASSWORD] == $this -> setPass($login, $password)) {
+                $_SESSION['user_id'] = $res[USER_ID]; // В сессию передается id пользователя.
+                if ($res[USER_IS_ADMIN] == 1) // Если залогинился администратор.
                 {
-                    $_SESSION['is_admin'] = $res['is_admin']; // В сессию передается то что он админ.
+                    $_SESSION['is_admin'] = $res[USER_IS_ADMIN]; // В сессию передается то что он админ.
 //                     return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';
                     return header("Location: " . $_SERVER['HTTP_REFERER']);
                 } else {

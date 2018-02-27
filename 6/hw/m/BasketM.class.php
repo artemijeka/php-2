@@ -23,10 +23,10 @@ class BasketM
                 ];
                 
                 // Проверка нет ли такой корзины.
-//                 $queryRes = PdoM::Instance()->Select(BASKETS, 'user_id', $object['user_id']);
-// echo '<pre>Select:';
-// var_dump($queryRes);
-// echo '</pre>'; 
+                $queryRes = PdoM::Instance()->SelectOnQuery("SELECT * FROM 'BASKETS' WHERE 'user_id'=$_SESSION['user_id'] AND 'item_id'=$item_id AND 'option_id'=$option");
+echo '<pre>Select:';
+var_dump($queryRes);
+echo '</pre>'; 
 
                 PdoM::Instance() -> Insert(BASKETS, $object);
             }

@@ -41,7 +41,8 @@ class PdoM
      * @param boolean $fetchAll
      * @return array|mixed
      */
-    public function Select($table, $where_key = false, $where_value = false, $fetchAll = false) {
+    public function Select($table, $where_key = false, $where_value = false, $fetchAll = false) 
+    {
         
         if ($where_key AND $where_value) {
             $query = "SELECT * FROM " . $table . " WHERE " . "'$where_key'" . " = " . $where_value;
@@ -65,7 +66,24 @@ class PdoM
         } else if ($where_key AND $where_value) {
             return $query->fetch();
         } else {
-            return $query->fetchAll();
+            return $query->fetch(); // Было fetchAll();
+        }
+    }
+    
+    public function SelectOnQuery($query, $fetchAll = false)
+    {
+        $query = $this->db->prepare($query);
+        $query -> execute();
+        
+        if ($query -> errorCode() != PDO::ERR_NONE) {
+            $info = $query->errorInfo();
+            die($info[2]); // Вывод ошибки запроса на экран.
+        }
+        
+        if ($fetchAll) {
+            return $query -> fetchAll();
+        } else {
+            return $query->fetch();
         }
     }
     

@@ -74,6 +74,7 @@ class UserM
     public function login($login, $password) 
     {
         $res = PdoM::Instance() -> Select(USERS, USER_LOGIN, $login);
+        var_dump($res);
         if ($res) {
             if ($res[USER_PASSWORD] == $this -> setPass($login, $password)) {
                 $_SESSION['user_id'] = $res[USER_ID]; // В сессию передается id пользователя.

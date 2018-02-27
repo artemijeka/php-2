@@ -36,10 +36,10 @@ echo "</pre>";
             MyTwigM::myTwigTemplate('catalog.twig', $vars);
         }
         
-echo "<pre>Сессия:";
+echo "<pre>CatalogC - Сессия:";
 print_r($_SESSION);
 echo "</pre>";
-echo "<pre>Пост:";
+echo "<pre>CatalogC - Пост:";
 print_r($_POST);
 echo "</pre>";
 // print_r($_SERVER);

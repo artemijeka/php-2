@@ -31,6 +31,7 @@ class UserM
     public function getUser($id)
     {
         $res = PdoM::Instance() -> Select(USERS, USER_ID, $id);
+// var_dump($res);
         return $res;
     }
     

@@ -45,7 +45,7 @@ class PdoM
     {
         
         if ($where_key AND $where_value) {
-            $query = "SELECT * FROM " . $table . " WHERE " . "'$where_key'" . " = " . $where_value;
+            $query = "SELECT * FROM " . $table . " WHERE " . $where_key . " = " . "'$where_value'";
 // echo '<pre> Select:';
 // var_dump($query);
 // echo '</pre>';
@@ -63,14 +63,14 @@ class PdoM
         
         if ($fetchAll) {
             return $query -> fetchAll();
-        } else if ($where_key AND $where_value) {
+        } elseif ($where_key AND $where_value) {
             return $query->fetch();
         } else {
-            return $query->fetch(); // Было fetchAll();
+            return $query->fetchAll();
         }
     }
     
-    public function SelectOnQuery($query, $fetchAll = false)
+    public function SelectOnQuery($query, $fetchAll = true)
     {
         $query = $this->db->prepare($query);
         $query -> execute();

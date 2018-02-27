@@ -10,6 +10,7 @@ class BasketM
     public static function addToBasket($object)
     {        
         foreach ($object as $item_id => $array_options) {
+            // Устанавливаем информацию о корзине в сессию.
             $_SESSION['basket'][$item_id] = $array_options;
 // var_dump($item_id, true);
 // var_dump($array_options[0], true);
@@ -23,12 +24,17 @@ class BasketM
                 ];
                 
                 // Проверка нет ли такой корзины.
-                $queryRes = PdoM::Instance()->SelectOnQuery("SELECT * FROM 'BASKETS' WHERE 'user_id'=$_SESSION['user_id'] AND 'item_id'=$item_id AND 'option_id'=$option");
-echo '<pre>Select:';
+                $queryRes = PdoM::Instance()->SelectOnQuery("SELECT * FROM `BASKETS` WHERE `user_id`= " . $object['user_id'] . " AND `item_id`= " . $object['item_id'] . " AND `option_id`= " . $object['option_id']);
+echo '<pre>SelectOnQuery:';
 var_dump($queryRes);
 echo '</pre>'; 
-
-                PdoM::Instance() -> Insert(BASKETS, $object);
+                
+                if (!$queryRes) {
+                    // Устанавливаем информацию о корзине в бд.
+                    PdoM::Instance() -> Insert(BASKETS, $object);
+                } else {
+                    return 'В вашей корзине уже есть такие позиции.';
+                }
             }
         }
         header("Location: ".$_SERVER['HTTP_REFERER']); // После стираем $_POST.

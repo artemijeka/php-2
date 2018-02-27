@@ -31,6 +31,7 @@ abstract class BaseC extends Controller
         
         if (isset($_SESSION['user_id'])) {
             $user_info = $get_user -> getUser($_SESSION['user_id']);
+// print_r($user_info);
         } else {
             $user_info['name'] = false;
         }

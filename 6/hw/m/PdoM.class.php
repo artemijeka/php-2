@@ -44,7 +44,10 @@ class PdoM
     public function Select($table, $where_key = false, $where_value = false, $fetchAll = false) {
         
         if ($where_key AND $where_value) {
-            $query = "SELECT * FROM " . $table . " WHERE " . $where_key . " = '" . $where_value . "'";
+            $query = "SELECT * FROM " . $table . " WHERE " . "'$where_key'" . " = " . $where_value;
+// echo '<pre> Select:';
+// var_dump($query);
+// echo '</pre>';
         } else {
             $query = "SELECT * FROM " . $table;
         }

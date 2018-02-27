@@ -8,19 +8,26 @@ class BasketM
      * @param array $object объект у которого индекс = id позиции, а массив внутри содержит опции товара. (Такие как: цвет, размер и т.п.)
      */
     public static function addToBasket($object)
-    {
+    {        
         foreach ($object as $item_id => $array_options) {
             $_SESSION['basket'][$item_id] = $array_options;
 // var_dump($item_id, true);
 // var_dump($array_options[0], true);
 // var_dump($_SESSION['user_id'], true);
+            
             foreach ($array_options as $option) {
                 $object = [
                     'item_id' => $item_id,
                     'option_id' => $option,
-                    'user_id' => $_SESSION['user_id']
+                    'user_id' => (int)$_SESSION['user_id']
                 ];
-                // !!!!!!Сделать проверку нет ли такой корзины!!!!!!!!!!!
+                
+                // Проверка нет ли такой корзины.
+//                 $queryRes = PdoM::Instance()->Select(BASKETS, 'user_id', $object['user_id']);
+// echo '<pre>Select:';
+// var_dump($queryRes);
+// echo '</pre>'; 
+
                 PdoM::Instance() -> Insert(BASKETS, $object);
             }
         }

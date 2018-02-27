@@ -20,7 +20,7 @@ const USERS = 'USERS'; // Таблица пользователей.
     const USER_LOGIN = 'login';
     const USER_PASSWORD = 'password';
     const USER_IS_ADMIN = 'is_admin';
-const BASKET = 'BASKETS';
+const BASKETS = 'BASKETS';
 
 /**
  * Константы изображений:

@@ -89,8 +89,9 @@ class PdoM
     
     /**
      * Метод вставки в базу данных.
+     * 
      * @param string $table table name
-     * @param assoc array $object Передаваемые значения в базу.
+     * @param array $object Передаваемые значения в базу.
      * @return type
      */
     public function Insert($table, $object)

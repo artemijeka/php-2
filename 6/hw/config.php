@@ -31,8 +31,8 @@ const MIN_IMAGE_DIRRECTORY = './assets/img/min/';
 /**
  * Константы опций позиции:
  */
-const ITEM_OPTION_A = 0;
-const ITEM_OPTION_B = 1;
+const VALUE_OPTION_A = 0;
+const VALUE_OPTION_B = 1;
 const NAME_OPTION_A = "Кобель";
 const NAME_OPTION_B = "Сука";
 

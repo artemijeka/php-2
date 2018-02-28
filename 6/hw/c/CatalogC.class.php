@@ -27,8 +27,8 @@ echo "</pre>";
         foreach ($items_arrays as $option_array) {
             $vars = array( 
                 'array_items' => $option_array,
-                'item_option_a' => ITEM_OPTION_A,
-                'item_option_b' => ITEM_OPTION_B,
+                'value_option_a' => VALUE_OPTION_A, // 0
+                'value_option_b' => VALUE_OPTION_B, // 1
                 'name_option_a' => NAME_OPTION_A,
                 'name_option_b' => NAME_OPTION_B,
                 'buy' => BUY

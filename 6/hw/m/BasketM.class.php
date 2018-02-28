@@ -11,6 +11,7 @@ class BasketM
     {        
         // Проверка есть ли такой товар в бд.
         foreach ($object as $item_id => $array_options) {
+            // Удаляем записи в бд с соответствующим user_id и item_id
             $where = "`user_id`=" . $_SESSION['user_id'] . " AND `item_id`=" . $item_id;
             $res_del = PdoM::Instance() -> Delete(BASKETS, $where);
             foreach ($array_options as $option_key => $option_value) {

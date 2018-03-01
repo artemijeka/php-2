@@ -8,13 +8,16 @@ class BasketM
      * @param array $object объект у которого индекс = id позиции, а массив внутри содержит опции товара. (Такие как: цвет, размер и т.п.)
      */
     public static function addToBasket($object)
-    {        
+    {     
+        // Удаляем записи в бд с соответствующим user_id и item_id
+        $where = "`user_id`=" . $_SESSION['user_id'] . " AND `item_id`=" . key($object);
+        $res = PdoM::Instance() -> Delete(BASKETS, $where); 
         
+echo '<pre>'; 
+var_dump($res);
+echo '</pre>'; 
+
         foreach ($object as $item_id => $array_options) {
-            // Удаляем записи в бд с соответствующим user_id и item_id
-            $where = "`user_id`=" . $_SESSION['user_id'] . " AND `item_id`=" . $item_id;
-            // НАДО ЧТОБЫ ВЫПОЛНЯЛСЯ 1 РАЗ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            PdoM::Instance() -> Delete(BASKETS, $where); 
             
             // Разбираем опции товара.
             foreach ($array_options as $option_value) {
@@ -35,16 +38,13 @@ echo '</pre>';
                 $res_add_ses = $_SESSION['basket'][$item_id] = $array_options;
                 
 //                unset($_SESSION['basket']);
-                $_POST = array();
+                header('Location: ' . $_SERVER['HTTP_REFERER']); // Обнуление $_POST
                 
-                if (is_numeric($res_add_db) && is_array($res_add_ses)) {
-                    return 'Корзина была обновлена.';
-                } else {
-                    return 'У вас уже есть такие позиции с такими опциями в корзине.';
-                }
-echo '<pre>'; 
-var_dump($res_add_ses);
-echo '</pre>';   
+//                if (is_numeric($res_add_db) && is_array($res_add_ses)) {
+//                    return 'Корзина была обновлена.';
+//                } else {
+//                    return 'У вас уже есть такие позиции с такими опциями в корзине.';
+//                }
             }
         }
     }

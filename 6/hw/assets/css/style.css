@@ -2,8 +2,11 @@
     Created on : Feb 18, 2018, 3:39:39 PM
     Author     : Артем Кузнецов
 */
+.red {
+    color: red;
+}
 .item-card {
-	padding: 8px;
+    padding: 8px;
     margin: 10px;
     border: 1px solid grey;
     border-radius: 8px;

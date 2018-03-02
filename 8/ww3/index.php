@@ -39,5 +39,3 @@ switch($controller){
 }
 
 $contr->Request($action);
-
-

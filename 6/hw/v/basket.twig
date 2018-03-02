@@ -1,6 +1,10 @@
 <table>
-	<thead></thead>
-	<tr>
-		<td></td>
-	</tr>
+    {% for item in basket %}
+       {% for option in item %}
+            <thead>Название позиции</thead>
+            <tr>
+                <td>{{option}}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
 </table>

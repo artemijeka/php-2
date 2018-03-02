@@ -6,17 +6,15 @@ class BasketC extends BaseC
     {
         $this -> title .= " | Корзина";
         $basket_obj = $_SESSION['basket'];
-echo '<pre>';
-var_dump($basket_obj);
-echo '</pre>';  
         
-//         BasketM::getBasket($basket_obj);
-//         foreach ($basket_obj as $item => $option_obj) {
-//             foreach ($option_obj as $item_option) {
-//                 $vars['item'] =  
-//             }
-//         }
-        $vars = [];
+//echo '<pre>';
+//var_dump($vars);
+//echo '</pre>';
+            
+        BasketM::getBasketArray($basket_obj);
+        $vars = [
+          
+        ];
         MyTwigM::myTwigTemplate('basket.twig', $vars);
     }
     

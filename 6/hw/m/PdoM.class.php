@@ -33,11 +33,11 @@ class PdoM
     }
     
     /**
-     * Метод выборки данных из бд.
+     * Метод модели выборки данных из бд.
      * 
-     * @param string $table
-     * @param string $where_key
-     * @param any $where_value
+     * @param string $table имя таблицы
+     * @param string $where_key имя колонки
+     * @param any $where_value значение поля
      * @param boolean $fetchAll
      * @return array|mixed
      */
@@ -56,13 +56,13 @@ class PdoM
         $query = $this->db->prepare($query);
         $query -> execute();
         
-        if ($query -> errorCode() != PDO::ERR_NONE) {
+        if ($query->errorCode() != PDO::ERR_NONE) {
             $info = $query->errorInfo();
             die($info[2]); // Вывод ошибки запроса на экран.
         }
         
         if ($fetchAll) {
-            return $query -> fetchAll();
+            return $query->fetchAll();
         } elseif ($where_key AND $where_value) {
             return $query->fetch();
         } else {
@@ -75,7 +75,7 @@ class PdoM
         $query = $this->db->prepare($query);
         $query -> execute();
         
-        if ($query -> errorCode() != PDO::ERR_NONE) {
+        if ($query->errorCode() != PDO::ERR_NONE) {
             $info = $query->errorInfo();
             die($info[2]); // Вывод ошибки запроса на экран.
         }

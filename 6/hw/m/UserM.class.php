@@ -14,9 +14,10 @@ class UserM
     /**
      * Конкатенация хэшей пароля и имени и переворачивания наоборот с помощью strrev()
      * 
-     * @param string $name Имя
-     * @param string $password Пароль
-     * @return string Возвращает хэшированый логин+имя и перевернутый
+     * @Warning: <b>Нельзя менять логику этого метода! Иначе никто из зарегестрированных пользователей не сможет зайти в систему!</b>
+     * @param string $login Логин пользователя.
+     * @param string $password Пароль.
+     * @return string Возвращает хэшированый логин+имя и перевернутый.
      */
     public function setPass($login, $password) {
 	   return strrev(md5($login) . md5($password));
@@ -74,19 +75,36 @@ class UserM
      */
     public function login($login, $password) 
     {
-        $res = PdoM::Instance() -> Select(USERS, USER_LOGIN, $login);
-        var_dump($res);
-        if ($res) {
-            if ($res[USER_PASSWORD] == $this -> setPass($login, $password)) {
-                $_SESSION['user_id'] = $res[USER_ID]; // В сессию передается id пользователя.
-                if ($res[USER_IS_ADMIN] == 1) // Если залогинился администратор.
-                {
-                    $_SESSION['is_admin'] = $res[USER_IS_ADMIN]; // В сессию передается то что он админ.
-//                     return 'Добро пожаловать в систему администратор, ' . $res['name'] . '!';
-                    return header("Location: " . $_SERVER['HTTP_REFERER']);
+        // Достаем информацию о пользователе:
+        $res_login = PdoM::Instance()->Select(USERS, USER_LOGIN, $login);
+        // Достаем информацию о корзине пользователе:
+        $basket_db = PdoM::Instance()->Select(BASKETS, USER_ID, $res_login[USER_ID], true);
+        foreach ($basket_db as $basket_array) {
+            $basket_object[$basket_array['item_id']] = [
+                'item_id'   => $basket_array['item_id'],
+                'count'     => $basket_array['count'],
+                'option_id' => $basket_array['option_id']
+            ];
+        }
+echo '<pre>$basket_object:';        
+var_dump($basket_object);
+echo '</pre>';
+        // Если логин в бд существует:
+        if ($res_login) {
+            // Сверяем пароль:
+            if ($res_login[USER_PASSWORD] == $this->setPass($login, $password)) {
+                // В сессию передается id пользователя.
+                $_SESSION[USER_ID] = $res_login[USER_ID]; 
+                // В сессию передается basket пользователя.
+                $_SESSION['basket'] = $basket_object;
+                if ($res_login[USER_IS_ADMIN] == 1) // Если залогинился администратор.
+                {   // В сессию передается то, что он админ.
+                    $_SESSION[USER_IS_ADMIN] = $res_login[USER_IS_ADMIN]; 
+                     return 'Добро пожаловать в систему администратор, ' . $res_login[USER_NAME] . '!';
+//                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 } else {
-//                     return 'Добро пожаловать в систему, ' . $res['name'] . '!';
-                    return header("Location: " . $_SERVER['HTTP_REFERER']);
+                     return 'Добро пожаловать в систему, ' . $res_login[USER_NAME] . '!';
+//                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 }
             } else {
                 return 'Пароль не верный!';
@@ -106,7 +124,7 @@ class UserM
     	if (isset($_SESSION["user_id"])) {
     	    unset($_SESSION["user_id"]);
     	    session_destroy();
-    	    return true;
+    	    return header("Location: " . $_SERVER['HTTP_REFERER']);
     	} else {
     	    return false;
     	}                      

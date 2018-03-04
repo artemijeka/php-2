@@ -38,7 +38,7 @@ class PdoM
      * @param string $table имя таблицы
      * @param string $where_key имя колонки
      * @param any $where_value значение поля
-     * @param boolean $fetchAll
+     * @param boolean $fetchAll default false
      * @return array|mixed
      */
     public function Select($table, $where_key = false, $where_value = false, $fetchAll = false) 
@@ -100,18 +100,18 @@ class PdoM
     		
     	foreach ($object as $key => $value) {
     	    $columns[] = $key;
-                $masks[] = "'$value'";
-                
-                if ($value === null) {
-                    $object[$key] = 'NULL';
-                }
+            $masks[] = "'$value'";
+
+            if ($value === null) {
+                $object[$key] = 'NULL';
+            }
     	}
     		
     	$columns_s = implode(',', $columns);
     	$masks_s = implode(',', $masks);
     		
     	$query = "INSERT INTO $table ($columns_s) VALUES ($masks_s)";
-    		
+print_r($query);
     	$query = $this -> db -> prepare($query);
     	$query->execute($object);
     		

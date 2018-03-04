@@ -6,9 +6,13 @@
 	<figcaption class="item-card__description"><strong>Титулы:</strong> {{ array_items.description }}</figcaption>
 	<h4><div class='item-card__price'>Цена: {{ array_items.price }}</div></h4>
 	<form method='post'>
-            <strong>Выбрать вариант: </strong>
-            <label>{{ name_option_a }}<input type="checkbox" name='{{array_items.item_id}}["option_a"]' value='{{value_option_a}}'/></label>
-            <label>{{ name_option_b }}<input type="checkbox" name='{{array_items.item_id}}["option_b"]' value='{{value_option_b}}'/></label>
+            <strong>{{ title_options }} </strong>
+            <input type="number" hidden name='item_id' value='{{array_items.item_id}}'/>
+            <label>{{ name_option_a }}<input type="radio" name='option_id' value='{{value_option_a}}'/></label>
+            <label>{{ name_option_b }}<input type="radio" name='option_id' value='{{value_option_b}}'/></label>
+            <br><br>
+            <label>Кол-во&nbsp;<input type="number" name='count' value='1' /></label>
+            <br><br>
             <input type="submit" value='{{ buy }}' />
 	</form>
 </figure>

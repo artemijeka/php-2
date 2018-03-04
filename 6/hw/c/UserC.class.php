@@ -41,16 +41,15 @@ class UserC extends BaseC
      */
     public function login() 
     {
-    	$this -> title .= ' | Вход';
+    	$this->title .= ' | Вход';
     	
-    	if (isset($_SESSION['is_admin'])) {
-    	    $this -> is_admin = $_SESSION['is_admin'];
-    	}
+//    	if (isset($_SESSION['is_admin'])) {
+//    	    $this -> is_admin = $_SESSION['is_admin'];
+//    	}
     	
-    	
-    	if ($this -> isPost()) {
+    	if ($this->isPost()) {
     	    $login = new UserM();
-    	    $res = $login -> login($_POST['login'], $_POST['password']);
+    	    $res = $login->login($_POST['login'], $_POST['password']);
             echo $res;
     	}
         

@@ -18,10 +18,12 @@ const GOODS = 'ITEMS'; // Таблица товаров.
 const USERS = 'USERS'; // Таблица пользователей.
     const USER_ID = 'user_id'; // Столец с id пользователя.
     const USER_LOGIN = 'login';
+    const USER_NAME = 'name'; // Название столбца "Имя пользвоателя".
     const USER_PASSWORD = 'password';
     const USER_IS_ADMIN = 'is_admin';
 const BASKETS = 'BASKETS';
 const ITEMS = 'ITEMS'; // Таблица с описанием позиций.
+const TITLE_OPTIONS = 'Вариант:'; // Титл "Выбрать вариант позиции"
 const OPTIONS = 'ITEM_OPTIONS'; // Таблица опций товаров.
 
 /**

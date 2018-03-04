@@ -27,6 +27,7 @@ echo "</pre>";
 		foreach ($items_arrays as $option_array) {
                     $vars = array(
                         'array_items'    => $option_array,
+                        'title_options'  => TITLE_OPTIONS,
                     	'value_option_a' => VALUE_OPTION_A, // 0
                     	'value_option_b' => VALUE_OPTION_B, // 1
                     	'name_option_a'  => NAME_OPTION_A,
@@ -39,14 +40,14 @@ echo "</pre>";
 echo "<pre>CatalogC - Сессия:";
 print_r($_SESSION);
 echo "</pre>";
-echo "<pre>CatalogC - Пост:";
-print_r($_POST);
-echo "</pre>";
+//echo "<pre>CatalogC - Пост:";
+//print_r($_POST);
+//echo "</pre>";
 //echo '<pre>CatalogC - $vars:';	
 //print_r($vars);
 //echo '</pre>';
 //// print_r($_SERVER);
-		// unset($_SESSION['basket']);
+//unset($_SESSION['basket']);
 	}
 
         

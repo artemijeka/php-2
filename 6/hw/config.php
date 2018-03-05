@@ -23,6 +23,7 @@ const USERS = 'USERS'; // Таблица пользователей.
     const USER_IS_ADMIN = 'is_admin';
 const BASKETS = 'BASKETS';
 const ITEMS = 'ITEMS'; // Таблица с описанием позиций.
+    const ITEM_ID = 'item_id';
 const TITLE_OPTIONS = 'Вариант:'; // Титл "Выбрать вариант позиции"
 const OPTIONS = 'ITEM_OPTIONS'; // Таблица опций товаров.
 

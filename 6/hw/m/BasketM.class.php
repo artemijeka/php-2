@@ -20,47 +20,48 @@ echo '</pre>';
 echo '<pre>BasketM - $res_query:';
 print_r($res_query);
 echo '</pre>';
+
         // Удаляем записи в сессии с соответствующим user_id и item_id и option_id
         unset($_SESSION['basket'][$res_query['basket_id']]);
 
-            // Формируем объект который пошлем в бд.
-            $basket_object[$object_post['item_id']] = [
-                'item_id' => $object_post['item_id'],
-                'count'     => $object_post['count'],
-                'option_id' => $object_post['option_id'],
-                'user_id'   => $_SESSION['user_id']
-            ];
+        // Формируем объект который пошлем в бд.
+        $basket_object[$object_post['item_id']] = [
+            'item_id' => $object_post['item_id'],
+            'count'     => $object_post['count'],
+            'option_id' => $object_post['option_id'],
+            'user_id'   => $_SESSION['user_id']
+        ];
 echo '<pre>BasketM - Объект идущий в бд и в сессию:';
 print_r($basket_object[$object_post['item_id']]);
-echo '</pre>'; 
+echo '</pre>';
 
-            // Передача объекта (асс. масс.) в бд.
-            PdoM::Instance()->Insert(BASKETS, $basket_object[$object_post['item_id']]);
+        // Передача объекта (асс. масс.) в бд.
+        PdoM::Instance()->Insert(BASKETS, $basket_object[$object_post['item_id']]);
 //echo '<pre>';
 //var_dump($res_add_db);
 //echo '</pre>';
-            
-            // Берем данные о корзине из бд:
-            $query = "SELECT * FROM `".BASKETS."` LEFT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id` WHERE "."`".BASKETS."`.`item_id`=".$object_post['item_id'];
-            $basket_db = PdoM::Instance()->SelectOnQuery($query, true);
 
-            // Переносим новые значения из бд в сессию:
-            foreach ($basket_db as $ind=>$array) {
+        // Берем данные о корзине из бд:
+        $query = "SELECT * FROM `".BASKETS."` LEFT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id` WHERE "."`".BASKETS."`.`item_id`=".$object_post['item_id'];
+        $basket_db = PdoM::Instance()->SelectOnQuery($query, true);
+
+        // Переносим новые значения из бд в сессию:
+        foreach ($basket_db as $ind=>$array) {
 //echo '<pre>BasketM - $basket_db:';
 //print_r($basket_db);
 //echo '</pre>';
-                // Обновляем данные в сессии.
+            // Обновляем данные в сессии.
 //                unset($_SESSION['basket'])
-                $_SESSION['basket'][$basket_db[$ind]['basket_id']] = [
-                    'item_id'   => $array['item_id'],
-                    'item_name' => $array['name'],
-                    'count'     => $array['count'],
-                    'option_id' => $array['option_id']
-                ];
-            }
+            $_SESSION['basket'][$basket_db[$ind]['basket_id']] = [
+                'item_id'   => $array['item_id'],
+                'item_name' => $array['name'],
+                'count'     => $array['count'],
+                'option_id' => $array['option_id']
+            ];
+        }
 
-            // Обнуление $_POST путем передачи заголовка: 'Вернуться на туже страницу' - то есть перезагрузка страницы.
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        // Обнуление $_POST путем передачи заголовка: 'Вернуться на туже страницу' - то есть перезагрузка страницы.
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     
     /**

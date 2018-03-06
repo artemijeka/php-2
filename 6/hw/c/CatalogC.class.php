@@ -14,28 +14,28 @@ class CatalogC extends BaseC
 
 		$this->title .= " | Каталог";
 
-echo "<pre>";
-var_dump($items_arrays);
-echo "</pre>";
+echo '<pre>CatalogC - $items_arrays:';
+print_r($items_arrays);
+echo '</pre>';
 
 		// Добавляем в корзину товары и их опции.
 		if ($this->isPost()) {
-                    BasketM::addToBasket($_POST);
+            $res_add = BasketM::addToBasket($_POST);
 		}
 
-		// В переменных должны выводиться вся информация о товарах в виде массива.
-		foreach ($items_arrays as $option_array) {
-                    $vars = array(
-                        'array_items'    => $option_array,
-                        'title_options'  => TITLE_OPTIONS,
-                    	'value_option_a' => VALUE_OPTION_A, // 0
-                    	'value_option_b' => VALUE_OPTION_B, // 1
-                    	'name_option_a'  => NAME_OPTION_A,
-                    	'name_option_b'  => NAME_OPTION_B,
-                    	'buy'            => BUY
-                    );
-                    MyTwigM::myTwigTemplate('catalog.twig', $vars);
-		}
+            // В переменных должны выводиться вся информация о товарах в виде массива.
+            foreach ($items_arrays as $option_array) {
+                $vars = array(
+                    'array_items'    => $option_array,
+                    'title_options'  => TITLE_OPTIONS,
+                    'value_option_a' => VALUE_OPTION_A, // 0
+                    'value_option_b' => VALUE_OPTION_B, // 1
+                    'name_option_a'  => NAME_OPTION_A,
+                    'name_option_b'  => NAME_OPTION_B,
+                    'buy'            => BUY
+                );
+                MyTwigM::myTwigTemplate('catalog.twig', $vars);
+            }
 
 echo "<pre>CatalogC - Сессия:";
 print_r($_SESSION);

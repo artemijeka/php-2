@@ -78,19 +78,22 @@ class UserM
         // Достаем информацию о пользователе:
         $res_login = PdoM::Instance()->Select(USERS, USER_LOGIN, $login);
         // Достаем информацию о корзине пользователе:
-        $query = "SELECT * FROM `".BASKETS."` LEFT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id`";
+        $query = "SELECT * FROM `".BASKETS."` RIGHT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id`";
         $basket_db = PdoM::Instance()->SelectOnQuery($query, true);
 //        $basket_db = PdoM::Instance()->Select(BASKETS, USER_ID, $res_login[USER_ID], true);
         foreach ($basket_db as $basket_array) {
-            $basket_object[$basket_array['item_id']] = [
-                'item_name'   => $basket_array['name'],
-                'count'       => $basket_array['count'],
-                'option_name' => $basket_array['option_name']
+            $basket_object[$basket_array['basket_id']] = [
+                'item_id'   => $basket_array['item_id'],
+                'item_name' => $basket_array['name'],
+                'count'     => $basket_array['count'],
+                'option_id' => $basket_array['option_id']
             ];
+//print_r($basket_array['option_id']);
         }
-echo '<pre>$basket_object:';        
-var_dump($basket_object);
+echo '<pre>$basket_object:';
+var_dump($basket_db);
 echo '</pre>';
+
         // Если логин в бд существует:
         if ($res_login) {
             // Сверяем пароль:

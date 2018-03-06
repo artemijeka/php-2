@@ -51,7 +51,7 @@ echo '</pre>';
 //print_r($basket_db);
 //echo '</pre>';
             // Обновляем данные в сессии.
-//                unset($_SESSION['basket'])
+//unset($_SESSION['basket'])
             $_SESSION['basket'][$basket_db[$ind]['basket_id']] = [
                 'item_id'   => $array['item_id'],
                 'item_name' => $array['name'],

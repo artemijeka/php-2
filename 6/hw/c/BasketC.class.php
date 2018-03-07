@@ -21,7 +21,7 @@ echo '</pre>';
                 'title' => 'Корзина пуста!'
             ];
         }
-        
+
         MyTwigM::myTwigTemplate('basket.twig', $vars);
     }
     

@@ -69,8 +69,16 @@ class PdoM
             return $query->fetchAll();
         }
     }
-    
-    public function SelectOnQuery($query, $fetchAll = true)
+
+
+    /**
+     * Сделать команду в бд по своему запросу.
+     *
+     * @param $query Свой запрос в бд.
+     * @param bool $fetchAll
+     * @return array|mixed
+     */
+    public function MyQuery($query, $fetchAll = true)
     {
         $query = $this->db->prepare($query);
         $query -> execute();

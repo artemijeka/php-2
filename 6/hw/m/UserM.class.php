@@ -79,7 +79,7 @@ class UserM
         $res_login = PdoM::Instance()->Select(USERS, USER_LOGIN, $login);
         // Достаем информацию о корзине пользователе:
         $query = "SELECT * FROM `".BASKETS."` RIGHT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id`";
-        $basket_db = PdoM::Instance()->SelectOnQuery($query, true);
+        $basket_db = PdoM::Instance()->MyQuery($query, true);
 //        $basket_db = PdoM::Instance()->Select(BASKETS, USER_ID, $res_login[USER_ID], true);
         foreach ($basket_db as $basket_array) {
             $basket_object[$basket_array['basket_id']] = [

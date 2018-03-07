@@ -43,7 +43,7 @@ echo '</pre>';
 
         // Берем данные о корзине из бд:
         $query = "SELECT * FROM `".BASKETS."` LEFT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id` WHERE "."`".BASKETS."`.`item_id`=".$object_post['item_id'];
-        $basket_db = PdoM::Instance()->SelectOnQuery($query, true);
+        $basket_db = PdoM::Instance()->MyQuery($query, true);
 
         // Переносим новые значения из бд в сессию:
         foreach ($basket_db as $ind=>$array) {
@@ -76,7 +76,7 @@ print_r($basket_session);
 echo '</pre>'; 
 
         // Берем данные об опциях из бд:
-        $options = PdoM::Instance()->Select(OPTIONS);
+        $name_options_by_id = PdoM::Instance()->MyQuery(OPTIONS, $query);
         // Берем данные об корзине из бд:
         $basket = PdoM::Instance()->Select(BASKETS, 'user_id', $_SESSION['user_id'], true);
         // Берем данные об позициях из бд:

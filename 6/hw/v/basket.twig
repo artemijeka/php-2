@@ -1,11 +1,15 @@
 <table>
     <h3>{{title}}</h3>
+    <thead>Название позиции</thead>
+    <thead>Кол-во в заказе</thead>
+    <thead>Цена</thead>
+    <thead>Опции</thead>
     {% for item in basket %}
-       {% for option in item %}
-            <thead>Название позиции</thead>
-            <tr>
-                <td>{{option}}</td>
-            </tr>
-        {% endfor %}
+        <tr>
+            <td>{{item.item_name}}</td>
+            <td>{{item.count}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.option_name}}</td>
+        </tr>
     {% endfor %}
 </table>

@@ -14,7 +14,8 @@ print_r($res_basket);
 echo '</pre>';
 
             $vars = [
-                'title' => 'Ваша корзина:'
+                'title'  => 'Ваша корзина:',
+                'basket' => $res_basket
             ];
         } else {
             $vars = [

@@ -76,33 +76,24 @@ print_r($basket_session);
 echo '</pre>'; 
 
         // Берем данные об опциях из бд:
-        $name_options_by_id = PdoM::Instance()->MyQuery(OPTIONS, $query);
-        // Берем данные об корзине из бд:
-        $basket = PdoM::Instance()->Select(BASKETS, 'user_id', $_SESSION['user_id'], true);
-        // Берем данные об позициях из бд:
-        $items = PdoM::Instance()->Select(ITEMS, true);
-echo '<pre>$options, $items:';
-print_r($options);
-print_r($items);
+        $name_options_by_id = PdoM::Instance()->Select(OPTIONS, true);
+echo '<pre>$name_options_by_id:';
+print_r($name_options_by_id);
 echo '</pre>';
 
-        // Перебираем сессию корзины на id позиции => массив заказанных опций.
-        foreach ($basket_session as $item_id => $current_options_array) {
-            // Перебираем значения массива заказанных опций позиции.
-            foreach ($current_options_array as $key => $value) {
-                // Нужно создать объект корзины с пригодными данными для вывода в браузер:
-//                $basket_content_array[$item_id]['item_name'] = 
+        // Перебираем сессию корзины.
+        foreach ($basket_session as $basket_id=>$basket_value) {
+            for ($i=0; $i<count($name_options_by_id); $i++) {
+                if ($basket_session[$basket_id]['option_id'] == $name_options_by_id[$i]['option_id']) {
+                    $basket_session[$basket_id]['option_name'] = $name_options_by_id[$i]['option_name'];
+                }
             }
-echo '<pre>ТЕКУЩИЙ РАЗБИРАЕМЫЙ МАССИВ ОПЦИЙ:';
-print_r($current_options_array);
-echo '</pre>';
-            
         }
 //echo '<pre>КОРЗИНА НА ВЫХОДЕ:';
 //print_r($basket_session);
 //echo '</pre>'; 
         
-        return $basket_content_array;
+        return $basket_session;
     }
 
 

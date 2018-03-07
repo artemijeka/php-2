@@ -8,9 +8,9 @@ class BasketC extends BaseC
         
         
         if (isset($_SESSION['basket'])) {
-            $content_array = BasketM::getContentForBasket($_SESSION['basket']);
-echo '<pre>$content_array:';
-print_r($basket_content_array);
+            $res_basket = BasketM::getContentForBasket($_SESSION['basket']);
+echo '<pre>$res_basket:';
+print_r($res_basket);
 echo '</pre>';
 
             $vars = [

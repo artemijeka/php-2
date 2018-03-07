@@ -47,21 +47,22 @@ echo '</pre>';
 
         // Переносим новые значения из бд в сессию:
         foreach ($basket_db as $ind=>$array) {
-//echo '<pre>BasketM - $basket_db:';
-//print_r($basket_db);
-//echo '</pre>';
+echo '<pre>BasketM - $basket_db:';
+print_r($basket_db);
+echo '</pre>';
             // Обновляем данные в сессии.
 //unset($_SESSION['basket'])
             $_SESSION['basket'][$basket_db[$ind]['basket_id']] = [
                 'item_id'   => $array['item_id'],
                 'item_name' => $array['name'],
                 'count'     => $array['count'],
-                'option_id' => $array['option_id']
+                'option_id' => $array['option_id'],
+                'price'     => $array['price']
             ];
         }
 
         // Обнуление $_POST путем передачи заголовка: 'Вернуться на туже страницу' - то есть перезагрузка страницы.
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+//        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     
     /**

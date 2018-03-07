@@ -86,7 +86,8 @@ class UserM
                 'item_id'   => $basket_array['item_id'],
                 'item_name' => $basket_array['name'],
                 'count'     => $basket_array['count'],
-                'option_id' => $basket_array['option_id']
+                'option_id' => $basket_array['option_id'],
+                'price'     => $basket_array['price']
             ];
 //print_r($basket_array['option_id']);
         }

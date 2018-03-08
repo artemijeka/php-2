@@ -81,6 +81,9 @@ class PdoM
     public function MyQuery($query, $fetchAll = true)
     {
         $query = $this->db->prepare($query);
+//echo '<pre>PdoM->MyQuery()=$query:';
+//print_r($query);
+//echo '</pre>';
         $query -> execute();
         
         if ($query->errorCode() != PDO::ERR_NONE) {

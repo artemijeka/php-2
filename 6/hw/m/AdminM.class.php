@@ -19,16 +19,37 @@ echo '<pre>AdminM->basketsUsers()=$res_query:';
 print_r($res_query);
 echo '</pre>';
 
-        foreach ($res_query as $id=>$array_user_order) {
-            $basket =
-            $basktets_users[] = [
-                'name'    => $array_user_order['name'],
-                'user_id' => $array_user_order['user_id'],
-                'basket'  => [
+        foreach ($res_query as $id => $array_user_order) {
+//            $basket = BasketM::getContentForBasket($res_query);
+            $item_name = PdoM::Instance()->MyQuery('SELECT `name` FROM `'.ITEMS.'` WHERE `item_id`='.$array_user_order['item_id']);
+            $option_name = PdoM::Instance()->MyQuery('SELECT `option_name` FROM `'.OPTIONS.'` WHERE `option_id`='.$array_user_order['option_id']);
+            $price = PdoM::Instance()->MyQuery('SELECT `price` FROM `'.ITEMS.'` WHERE `item_id`='.$array_user_order['item_id']);
+//print_r($price[0]['price']);
+            // Проверка на число в бд:
+            if (is_numeric($price[0]['price'])) {
+                // Если так то перемножить цену на кол-во:
+                $price = $price[0]['price'] * $array_user_order['count'];
+            } else {
+                // Если нет, то оставить как есть:
+                $price = $price[0]['price'];
+            }
 
-                ]
-            ];
+            if (true) {
+                $basktets_users[] = [
+                    'user_id'     => $array_user_order['user_id'],
+                    'name'        => $array_user_order['name'],
+                    'item_name'   => $item_name[0]['name'],
+                    'option_name' => $option_name[0]['option_name'],
+                    'count'       => $array_user_order['count'],
+                    'price'       => $price
+                ];
+            }
         }
+echo '<pre>AdminM->basketsUsers()=$item_name:';
+print_r($item_name);
+echo '</pre>';
+
+        return $basktets_users;
     }
 
     /**

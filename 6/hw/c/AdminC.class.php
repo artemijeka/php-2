@@ -52,9 +52,11 @@ class AdminC extends BaseC
      */
     public function basketsUsers()
     {
-        $res = AdminM::basketsUsers();
+        $basktets_users = AdminM::basketsUsers();
 
-        $vars = [];
+        $vars = [
+            'basktets_users' => $basktets_users
+        ];
         MyTwigM::myTwigTemplate('baskets_users.twig', $vars);
     }
     

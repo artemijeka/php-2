@@ -1,6 +1,18 @@
 <table>
     <tr>
         <th>Имя пользователя</th>
-        <th>Корзина пользователя</th>
+        <th>Заказанная позиция</th>
+        <th>Опция позиции</th>
+        <th>Кол-во позиции</th>
+        <th>Цена</th>
     </tr>
+    {% for order in basktets_users %}
+        <tr>
+            <td>{{ order.name }}</td>
+            <td>{{ order.item_name }}</td>
+            <td>{{ order.option_name }}</td>
+            <td>{{ order.count }}</td>
+            <td>{{ order.price }}</td>
+        </tr>
+    {% endfor %}
 </table>

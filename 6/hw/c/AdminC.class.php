@@ -54,6 +54,9 @@ class AdminC extends BaseC
     {
         $basktets_users = AdminM::basketsUsers();
 
+        if ($this->isPost()) AdminM::changeStatus($_POST);
+//        if ($this->isPost()) print_r($_POST);
+
         $vars = [
             'basktets_users' => $basktets_users
         ];

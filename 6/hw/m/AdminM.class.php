@@ -41,7 +41,8 @@ echo '</pre>';
                     'item_name'   => $item_name[0]['name'],
                     'option_name' => $option_name[0]['option_name'],
                     'count'       => $array_user_order['count'],
-                    'price'       => $price
+                    'price'       => $price,
+                    'basket_id'   => $array_user_order['basket_id']
                 ];
             }
         }
@@ -51,6 +52,23 @@ echo '</pre>';
 
         return $basktets_users;
     }
+
+
+
+    /**
+     * @param $change_value
+     */
+    public function changeStatus($change_value)
+    {
+echo '<pre>AdminM->changeStatus()=$change_value:';
+print_r($change_value);
+echo '</pre>';
+
+//        $change_var = $change_value['change']['order'];
+        print_r($change_value['change']);
+    }
+
+
 
     /**
      * Метод загрузки новой позиции на сервер и бд.

@@ -12,9 +12,23 @@ class AdminM
      *
      *
      */
-    public function orderManagement()
+    public function basketsUsers()
     {
+        $res_query = PdoM::Instance()->MyQuery('SELECT * FROM `'.BASKETS.'` LEFT JOIN `'.USERS.'` ON `'.BASKETS.'`.`user_id`=`'.USERS.'`.`user_id`');
+echo '<pre>AdminM->basketsUsers()=$res_query:';
+print_r($res_query);
+echo '</pre>';
 
+        foreach ($res_query as $id=>$array_user_order) {
+            $basket =
+            $basktets_users[] = [
+                'name'    => $array_user_order['name'],
+                'user_id' => $array_user_order['user_id'],
+                'basket'  => [
+
+                ]
+            ];
+        }
     }
 
     /**

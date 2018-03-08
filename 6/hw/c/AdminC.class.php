@@ -20,8 +20,8 @@ class AdminC extends BaseC
         
         if ($this -> isPost()) {
             $item_image = $_FILES['item_image'];
-            $item_image_dir = IMAGE_DIRRECTORY . $_FILES['item_image']['name'];
-            $item_min_image_dir = MIN_IMAGE_DIRRECTORY . $_FILES['item_image']['name'];
+            $item_image_dir = IMAGE_DIR . $_FILES['item_image']['name'];
+            $item_min_image_dir = MIN_IMAGE_DIR . $_FILES['item_image']['name'];
             $item_name = $_POST['item_name'];
             $item_category = $_POST['item_category'];
             $item_description = $_POST['item_description'];
@@ -50,10 +50,12 @@ class AdminC extends BaseC
      *
      *
      */
-    public function orderManagement()
+    public function basketsUsers()
     {
+        $res = AdminM::basketsUsers();
+
         $vars = [];
-        MyTwigM::myTwigTemplate('order_management.twig', $vars);
+        MyTwigM::myTwigTemplate('baskets_users.twig', $vars);
     }
     
     

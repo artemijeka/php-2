@@ -61,7 +61,7 @@ class UserC extends BaseC
      */
     public function logout() {
     	$logout = new UserM();
-    	$result = $logout -> logout();
+    	$logout -> logout();
     }
     
     

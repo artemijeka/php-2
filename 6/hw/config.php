@@ -30,8 +30,8 @@ const OPTIONS = 'ITEM_OPTIONS'; // Таблица опций товаров.
 /**
  * Константы изображений:
  */
-const IMAGE_DIRRECTORY = './assets/img/';
-const MIN_IMAGE_DIRRECTORY = './assets/img/min/';
+const IMAGE_DIR = './assets/img/';
+const MIN_IMAGE_DIR = './assets/img/min/';
 
 /**
  * Константы опций позиции:

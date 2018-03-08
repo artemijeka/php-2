@@ -77,47 +77,51 @@ class UserM
     {
         // Достаем информацию о пользователе:
         $res_login = PdoM::Instance()->Select(USERS, USER_LOGIN, $login);
-        // Достаем информацию о корзине пользователе:
-        $query = "SELECT * FROM `".BASKETS."` RIGHT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `ITEMS`.`item_id`";
-        $basket_db = PdoM::Instance()->MyQuery($query, true);
-//        $basket_db = PdoM::Instance()->Select(BASKETS, USER_ID, $res_login[USER_ID], true);
-        foreach ($basket_db as $basket_array) {
-            $basket_object[$basket_array['basket_id']] = [
-                'item_id'   => $basket_array['item_id'],
-                'item_name' => $basket_array['name'],
-                'count'     => $basket_array['count'],
-                'option_id' => $basket_array['option_id'],
-                'price'     => $basket_array['price']
-            ];
-//print_r($basket_array['option_id']);
-        }
-echo '<pre>$basket_object:';
-var_dump($basket_db);
-echo '</pre>';
 
         // Если логин в бд существует:
         if ($res_login) {
             // Сверяем пароль:
             if ($res_login[USER_PASSWORD] == $this->setPass($login, $password)) {
                 // В сессию передается id пользователя.
-                $_SESSION[USER_ID] = $res_login[USER_ID]; 
+                $_SESSION[USER_ID] = $res_login[USER_ID];
+
+                // Достаем информацию о корзине пользователе:
+                $query = "SELECT * FROM `".BASKETS."` RIGHT JOIN `".ITEMS."` ON `".BASKETS."`.`item_id` = `".ITEMS."`.`item_id`";
+                $basket_db = PdoM::Instance()->MyQuery($query, true);
+                foreach ($basket_db as $basket_array) {
+                    if ($basket_array[USER_ID] == $_SESSION[USER_ID]) {
+                        $basket_object[$basket_array['basket_id']] = [
+                            'item_id' => $basket_array['item_id'],
+                            'item_name' => $basket_array['name'],
+                            'count' => $basket_array['count'],
+                            'option_id' => $basket_array['option_id'],
+                            'price' => $basket_array['price']
+                        ];
+                    }
+//print_r($basket_array['option_id']);
+                }
+//echo '<pre>$basket_object:';
+//print_r($basket_db);
+//echo '</pre>';
+
                 // В сессию передается basket пользователя.
                 $_SESSION['basket'] = $basket_object;
-                if ($res_login[USER_IS_ADMIN] == 1) // Если залогинился администратор.
-                {   // В сессию передается то, что он админ.
-                    $_SESSION[USER_IS_ADMIN] = $res_login[USER_IS_ADMIN]; 
-                     return 'Добро пожаловать в систему администратор, ' . $res_login[USER_NAME] . '!';
-//                    return header("Location: " . $_SERVER['HTTP_REFERER']);
+
+                if ($res_login[USER_IS_ADMIN] == 1) { // Если залогинился администратор.
+                    // В сессию передается то, что он админ.
+                    $_SESSION[USER_IS_ADMIN] = $res_login[USER_IS_ADMIN];
+//                    return 'Добро пожаловать в систему администратор, ' . $res_login[USER_NAME] . '!';
+                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 } else {
-                     return 'Добро пожаловать в систему, ' . $res_login[USER_NAME] . '!';
-//                    return header("Location: " . $_SERVER['HTTP_REFERER']);
+//                     return 'Добро пожаловать в систему, ' . $res_login[USER_NAME] . '!';
+                    return header("Location: " . $_SERVER['HTTP_REFERER']);
                 }
             } else {
                 return 'Пароль не верный!';
             }
         } else {
             return 'Пользователь с таким логином не зарегистрирован!';
-        }  
+        }
     }
     
     /**
@@ -129,6 +133,7 @@ echo '</pre>';
     {
     	if (isset($_SESSION["user_id"])) {
     	    unset($_SESSION["user_id"]);
+    	    unset($_SESSION['basket']);
     	    session_destroy();
     	    return header("Location: " . $_SERVER['HTTP_REFERER']);
     	} else {

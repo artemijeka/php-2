@@ -5,7 +5,18 @@
 class AdminM
 {
     public function __construct(){}
-    
+
+
+    /**
+     * Модуль управления заказами.
+     *
+     *
+     */
+    public function orderManagement()
+    {
+
+    }
+
     /**
      * Метод загрузки новой позиции на сервер и бд.
      * 

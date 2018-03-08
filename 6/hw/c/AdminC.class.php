@@ -4,6 +4,12 @@
  */
 class AdminC extends BaseC
 {
+    public function admin()
+    {
+        $vars = [];
+        MyTwigM::myTwigTemplate('admin.twig', $vars);
+    }
+
     /**
      * Выводит и контролирует шаблон загрузки товара в админке.
      */
@@ -37,6 +43,17 @@ class AdminC extends BaseC
         }
         
         MyTwigM::myTwigTemplate('load_item.twig', $vars);
+    }
+
+    /**
+     * Контроллер управления заказами.
+     *
+     *
+     */
+    public function orderManagement()
+    {
+        $vars = [];
+        MyTwigM::myTwigTemplate('order_management.twig', $vars);
     }
     
     

@@ -6,7 +6,7 @@
         <th>Опции</th>
         <th>Цена</th>
     </tr>
-    {% for item in basket %}
+    {% for item in basket | reverse %}
         <tr>
             <td>{{item.item_name}}</td>
             <td>{{item.count}}</td>

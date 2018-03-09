@@ -54,11 +54,14 @@ class AdminC extends BaseC
     {
         $basktets_users = AdminM::basketsUsers();
 
-        if ($this->isPost()) AdminM::changeStatus($_POST);
-//        if ($this->isPost()) print_r($_POST);
+        if ($this->isPost()) {
+            $status = AdminM::changeStatus($_POST);
+        }
 
         $vars = [
+//            'status' => $status,
             'basktets_users' => $basktets_users
+
         ];
         MyTwigM::myTwigTemplate('baskets_users.twig', $vars);
     }

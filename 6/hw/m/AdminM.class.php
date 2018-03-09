@@ -60,12 +60,23 @@ echo '</pre>';
      */
     public function changeStatus($change_value)
     {
-echo '<pre>AdminM->changeStatus()=$change_value:';
-print_r($change_value);
+//echo '<pre>AdminM->changeStatus()=$change_value:';
+//print_r($change_value);
+//echo '</pre>';
+
+        $change_var = $change_value['change'];
+
+        $change_var_arr = explode('_', $change_var);
+echo '<pre>AdminM->changeStatus()=$change_var:<br>';
+var_dump($change_var_arr);
 echo '</pre>';
 
-//        $change_var = $change_value['change']['order'];
-        print_r($change_value['change']);
+        $user_name = 'Петька';
+        $stat = 'принят';
+        mail('artem.kuznecov.samara@gmail.com', $user_name, 'Ваш заказ был переведен в статус: '.$stat);
+
+        // Возвращает массив с id заказа и статусом этого заказа:
+        return $change_var_arr;
     }
 
 

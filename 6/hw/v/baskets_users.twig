@@ -16,9 +16,9 @@
             <td>{{ order.price }}</td>
             <td>
                 <form method="post">
-                    <!--{% for ind in status %}
+                    {# {% for ind in status %}
                         {% if ind == order.basket_id and status[1] == 'processing' %}HELLO{% endif %}
-                    {% endfor %}-->
+                    {% endfor %} #}
                     <select name="change">
                         <option value="{{order.basket_id}}_processing" name="">Обработка</option>
                         <option value="{{order.basket_id}}_accepted" name="">Принят</option>

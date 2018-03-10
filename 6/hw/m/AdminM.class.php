@@ -73,7 +73,17 @@ echo '</pre>';
 
         $user_name = 'Петька';
         $stat = 'принят';
-        mail('artem.kuznecov.samara@gmail.com', $user_name, 'Ваш заказ был переведен в статус: '.$stat);
+
+        MailM::sendMimeMail('Интернет магаз',
+                            'moning-star-schnauzer.ru',
+                            'Получатель',
+                            'artem.kuznecov.samara@gmail.com',
+                            'UTF-8',
+                            'UTF-8',
+                            'Тема',
+                            'Письмо...'
+        );
+//        mail('artem.kuznecov.samara@gmail.com', $user_name, 'Ваш заказ был переведен в статус: '.$stat);
 
         // Возвращает массив с id заказа и статусом этого заказа:
         return $change_var_arr;
